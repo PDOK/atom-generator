@@ -52,7 +52,7 @@ Usage: generate-atom [OPTIONS] [LOCATIONS]... CONFIG_PATH BASE_URL
   source_bucket       bucket in minio that contains the raw files
   source_path         path to files inside the minio bucket
   *destination_bucket optional new location for the raw files
-  *destination_path   path to files iniside the minio bucket
+  *destination_path   path to files inside the minio bucket
 
   example: `generate-atom source_bucket /source_path destination_bucket
   /destination_path conf.json http://example.com`
@@ -87,7 +87,7 @@ A good example can be found at:
 
 ## Dockerfile
 
-To run the docker container you first need to build it and run it throught `docker run` with the same environment variables:
+To run the docker container you first need to build it and run it through `docker run` with the same environment variables:
 
 - `S3_SIGNING_REGION`
 - `S3_ENDPOINT_NO_PROTOCOL`
@@ -95,7 +95,7 @@ To run the docker container you first need to build it and run it throught `dock
 - `S3_SECRET_KEY`
 - `NGR_ENVIRONMENT`
 
-Run through the commandline:
+Run through the command-line interface:
 
 ```docker
 docker run -e S3_ENDPOINT_NO_PROTOCOL=localhost:8000 -e S3_ACCESS_KEY=my_access_key -e S3_SECRET_KEY=my_secret_key -e S3_SIGNING_REGION=Amsterdam -e NGR_ENVIRONMENT=test generate-atom --help
@@ -103,7 +103,7 @@ docker run -e S3_ENDPOINT_NO_PROTOCOL=localhost:8000 -e S3_ACCESS_KEY=my_access_
 
 ## Config - values.json
 
-Atom implementatie is based on the INSPIRE Download Service [Technical Guidance](https://inspire.ec.europa.eu/documents/Network_Services/Technical_Guidance_Download_Services_v3.1.pdf). See here below the explanation for the different fields.
+Atom implementation is based on the INSPIRE Download Service [Technical Guidance](https://inspire.ec.europa.eu/documents/Network_Services/Technical_Guidance_Download_Services_v3.1.pdf). See here below the explanation for the different fields.
 
 ### service_subtitle
 
@@ -115,4 +115,4 @@ The field `datasets/downloads/download_content` is only mandatory when a dataset
 
 ### datasets/dataset_bbox
 
-The field `datasets/dataset_bbox` will be used to generated a `georss:polygon` for each dataset. The CRS of the field `datasets/dataset_bbox` needs to be WGS84 (EPSG:4326). The extent needs to match the extent of the Geographic Bounding Box van het corresponderende dataset metadata record.
+The field `datasets/dataset_bbox` will be used to generated a `georss:polygon` for each dataset. The CRS of the field `datasets/dataset_bbox` needs to be WGS84 (EPSG:4326). The extent needs to match the extent of the Geographic Bounding Box of the corresponding dataset metadata record.
