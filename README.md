@@ -2,13 +2,7 @@
 
 ATOM Generator is a CLI application to generate ATOM feeds.
 
-An atom feed is a web standard for sharing files via http. The atom in this case is an xml file with metadata and the actual location, where a file can be downloaded.
-
-An atom feed can consist of several files. These are grouped in the index.xml which in turn refers to all atom xml, of specific files.
-
-This atom generator is used to generate the atom xml. This is only possible for files that are in minio. Minio is the blob store used to house the documents.
-
-The atom generator is used in two ways. In this readme we refer to the old way and the new way.
+An atom feed is a [web standard](https://tools.ietf.org/html/rfc5023) for sharing files via http. The atom in this case is an xml file with metadata and the actual location, where a file can be downloaded. An atom feed can consist of several files. These are grouped in the index.xml which in turn refers to all atom xml, of specific files. This atom generator is used to generate the atom xml. This is only possible for files that are in [Minio](https://min.io/). Minio is a blob store that is used to house the documents. The atom generator is used in two ways. In this readme we refer to the old way and the new way.
 
 __Old situation__: The atom generator copies the files to another bucket. And the atom xml files are also placed in this bucket. The cli signature has not been adapted for the new situation so that it is backwards compatible.
 
@@ -20,7 +14,7 @@ Install dependencies with:
 
 ```bash
 # install dependencies
-$ sudo  apt-get install libxml2-dev libxslt1-dev python-dev
+$ sudo apt-get install libxml2-dev libxslt1-dev python-dev
 $ PIPENV_VENV_IN_PROJECT=1 pipenv install --python 3.8 --dev
 ```
 
@@ -54,8 +48,7 @@ Usage: generate-atom [OPTIONS] [LOCATIONS]... CONFIG_PATH BASE_URL
   *destination_bucket optional new location for the raw files
   *destination_path   path to files inside the minio bucket
 
-  example: `generate-atom source_bucket /source_path destination_bucket
-  /destination_path conf.json http://example.com`
+  example: `generate-atom source_bucket /source_path destination_bucket /destination_path conf.json http://example.com`
 
 Options:
   --force / --no-force  Overwrite existing atom feed
@@ -85,7 +78,11 @@ A good example can be found at:
 
 [Workflow Publication New Atom INSPIRE Service](manual_create_atom.md)
 
-## Dockerfile
+## Docker
+
+```docker
+docker build -t pdok/atom-generator .
+```
 
 To run the docker container you first need to build it and run it through `docker run` with the same environment variables:
 
