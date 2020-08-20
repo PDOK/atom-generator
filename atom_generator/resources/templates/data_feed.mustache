@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet href="./style/style.xsl" type="text/xsl" media="screen"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss">
+  <id>{{datafeed_url}}</id>
+  <title type="text" xml:lang="nl">{{datafeed_title_nl}}</title>
+  <subtitle type="text" xml:lang="nl">{{datafeed_subtitle_nl}}</subtitle>
+  <link href="{{datafeed_url}}" rel="self" type="application/atom+xml" title="Dataset Feed" hreflang="nl"/>
+  <link href="{{dataset_metadata_url}}" rel="describedby" type="text/xml"/>
+  <link href="{{dataset_metadata_web_url}}" rel="related" type="text/html" hreflang="nl"/>
+  <link href="{{service_index_url}}" rel="up" type="application/atom+xml" title="Top Atom Service Feed" hreflang="nl"/>
+  <author>
+    <name>PDOK beheer</name>
+    <email>beheerPDOK@kadaster.nl</email>
+  </author>
+  <rights type="text">{{dataset_rights}}</rights>
+  <updated>{{updated}}</updated>
+ {{#downloads}}
+  <entry>
+    <id>{{download_id}}</id>
+    <title type="text" xml:lang="nl">{{download_title}}</title>
+    {{#has_download_content}}
+    <content type="text" xml:lang="nl">{{download_content}}</content>
+    {{/has_download_content}}
+    <updated>{{updated}}</updated>
+    <link href="{{download_url}}" title="" rel="alternate" type="{{download_mimetype}}" hreflang="nl" length="{{download_length}}"/>
+    <link href="{{download_url}}" hreflang="nl"/>
+    <category term="{{crs_uri}}" label="{{crs_label}}"/>
+    <georss:polygon>{{dataset_polygon}}</georss:polygon>
+  </entry>
+{{/downloads}}
+</feed>

@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+"flake8" = "*"
+"black" = "==19.10b0"
+"zest.releaser" = "*"
+"pytest" = "==5.4.*"
+"pytest-flakes" = "*"
+"pytest-black" = "==0.3.9"
+"pytest-mock" = "*"
+"ipdb" = "*"
+"ipython" = "*"
+
+[packages]
+# === This package ===
+# Should always be installed like this, else setup.py is bypassed (and we would
+# have to modify PYTHONPATH at several points in the project)
+# We set installation requirements in setup.py. Please set test requirements in Pipfile.
+"atom-generator" = {path = ".", editable = true}
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+# This is necessary to be able to install black and pipenv-black.
+allow_prereleases = true

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet href="./style/style.xsl" type="text/xsl" media="screen"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xmlns:georss="http://www.georss.org/georss">
+  <id>{{service_index_url}}</id>
+  <title type="text" xml:lang="nl">{{service_title}}</title>
+  <subtitle type="text" xml:lang="nl">{{service_subtitle}}</subtitle>
+  <link href="{{service_opensearch_url}}" rel="search" type="application/opensearchdescription+xml" title="Open Search document voor INSPIRE Download service PDOK"/>
+  <link href="{{service_index_url}}" rel="self" type="application/atom+xml" hreflang="nl" title="Service Feed" />
+  <link href="{{service_metadata_url}}" rel="describedby" type="application/xml"/>
+  <link href="{{service_metadata_web_url}}" rel="related" type="text/html" hreflang="nl"/>
+  <author>
+    <name>PDOK Beheer</name>
+    <email>beheerPDOK@kadaster.nl</email>
+  </author>
+  <rights type="text">{{service_rights}}</rights>
+  <updated>{{updated}}</updated>
+  {{#datasets}}
+  <entry>
+    <id>{{datafeed_url}}</id>
+    <title type="text" xml:lang="nl">{{datafeed_title_nl}}</title>
+    <summary type="text" xml:lang="nl">{{datafeed_summary_nl}}</summary>
+    <updated>{{updated}}</updated>
+    {{#downloads}}
+    <category term="{{crs_uri}}" label="{{crs_label}}"/>
+    {{/downloads}}
+    <georss:polygon>{{dataset_polygon}}</georss:polygon>
+    <link href="{{dataset_metadata_url}}" rel="describedby" type="application/xml"/>
+    <link href="{{dataset_metadata_web_url}}" rel="related" type="text/html" hreflang="nl" />
+    <link href="{{datafeed_url}}" rel="alternate" type="application/atom+xml" hreflang="nl" title=""/>
+    <link href="{{datafeed_url}}" hreflang="nl"/>
+    <inspire_dls:spatial_dataset_identifier_code>{{dataset_source_id}}</inspire_dls:spatial_dataset_identifier_code>
+    <inspire_dls:spatial_dataset_identifier_namespace>{{dataset_source_id_ns}}</inspire_dls:spatial_dataset_identifier_namespace>
+  </entry>
+  {{/datasets}}
+</feed>
