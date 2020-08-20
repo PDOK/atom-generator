@@ -1,4 +1,4 @@
-# atom-Generator
+# atom-generator
 
 ATOM Generator is a CLI application to generate ATOM feeds.
 
