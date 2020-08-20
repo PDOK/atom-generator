@@ -1,61 +1,48 @@
-# Atom-Generator
+# atom-Generator
 
 ATOM Generator is a CLI application to generate ATOM feeds.
 
-Een atom feed is een webstandaard voor het delen van bestanden via http.
-De atom in dit geval is een xml bestand met meta data en de werkelijke locatie,
-waar een bestand gedownload kan worden.
+An atom feed is a web standard for sharing files via http. The atom in this case is an xml file with metadata and the actual location, where a file can be downloaded.
 
-Een atom feed kan bestaan uit meerdere bestanden.
-Deze staan gegroepeerd in de index.xml die weer verwijst naar alle atom xml's,
-van specifieke bestanden.
+An atom feed can consist of several files. These are grouped in the index.xml which in turn refers to all atom xml, of specific files.
 
-Deze atom generator word gebruikt om de atom xml's te genereren. 
-Dit kan alleen voor betsanden die in minio staan.
-Minio is de blob store die word gebruikt om de documenten te huisvesten.
+This atom generator is used to generate the atom xml. This is only possible for files that are in minio. Minio is the blob store used to house the documents.
 
-De atom generator word op twee manieren gebruikt.
-In deze readme refereren wij naar de oude manier en die nieuwe manier.
+The atom generator is used in two ways. In this readme we refer to the old way and the new way.
 
-__Oude situatie:__ De atom generator kopieert de bestanden naar een andere buckit.
-En de atom xml bestanden worden ook in deze buckit geplaatst.
-De cli signature is niet aangpast voor de nieuwe situatie zodat deze backwards compatible is.
+__Old situation__: The atom generator copies the files to another bucket. And the atom xml files are also placed in this bucket. The cli signature has not been adapted for the new situation so that it is backwards compatible.
 
-__Nieuwe situatie:__ De atom generator slaat de atom xml bestanden lokaal op.
-Deze worden dan direct in de service container beschikbaar.
-Hiervoor wordt gebruik gemaakt van de parameter path `=--path=/data/here`.
-De bestanden zelf worden niet verplaatst, zij staan al op de juiste locatie.
-Hierdoor komen twee parameters van de oude cli signature te vervallen.
+__New situation__: The atom generator stores the atom xml files locally. These are then immediately available in the service container. The parameter path `= - path = / data / here` is used for this. The files themselves are not moved, they are already in the correct location. This removes two parameters from the old CLI signature.
 
-## Installeer dependencies for development 
+## Install dependencies for development
 
-Installeer dependencies met:
+Install dependencies with:
 
-```
+```bash
 # install dependencies
 $ sudo  apt-get install libxml2-dev libxslt1-dev python-dev
 $ PIPENV_VENV_IN_PROJECT=1 pipenv install --python 3.8 --dev
 ```
 
-Verwijder met:
+Remove with:
 
-```
+```pipenv
 pipenv --rm
 ```
 
-## Gebruik
+## Usage
 
 De applicatie gebruikt environmental variables voor configuratie. Bij gebruik van
 pipenv worden deze variabelen automatisch ingeladen uit het `.env` bestand. Om te testen
-zonder environmental variabelen kan dat bestand deze weggehaald worden. 
+zonder environmental variabelen kan dat bestand deze weggehaald worden.
 
-Start de pipenv shell als volgt: 
+Start de pipenv shell als volgt:
 
 ```bash
 pipenv shell
 ```
 
-```
+```bash
 $ generate-atom --help
 Usage: generate-atom [OPTIONS] [LOCATIONS]... CONFIG_PATH BASE_URL
 
@@ -80,25 +67,29 @@ Options:
   --help                Show this message and exit.
 ```
 
-### Voorbeeld
+### Example
 
-_Oude situatie_
+#### _Old situation_
 
-`generate-atom deliveries hwh/hydrografie/1/ atom hwh/hydrografie conf.json https://geodata.nationaalgeoregister.nl`
+```bash
+generate-atom deliveries hwh/hydrografie/1/ atom hwh/hydrografie conf.json https://geodata.nationaalgeoregister.nl
+```
 
-_Nieuw situatie_
+#### _New situation_
 
-`generate-atom atom hwh/hydrografie/1/ conf.json https://geodata.nationaalgeoregister.nl --path=/output --service_path=/hydrografie/v0_1`
+```bash
+generate-atom atom hwh/hydrografie/1/ conf.json https://geodata.nationaalgeoregister.nl --path=/output --service_path=/hydrografie/v0_1
+```
 
-Voor meer informatie over specifieke functie:
+For more information about the specific functions:
 
-Een goede voorbeeld kan je vinden op:
+A good example can be found at:
 
 [Workflow Publication New Atom INSPIRE Service](manual_create_atom.md)
 
 ## Dockerfile
 
-Draai docker container door eerst image te bouwen en dan met `docker run` draaien met dezelfde environmental variabelen:
+To run the docker container you first need to build it and run it throught `docker run` with the same environment variables:
 
 - `S3_SIGNING_REGION`
 - `S3_ENDPOINT_NO_PROTOCOL`
@@ -106,25 +97,24 @@ Draai docker container door eerst image te bouwen en dan met `docker run` draaie
 - `S3_SECRET_KEY`
 - `NGR_ENVIRONMENT`
 
-Voer uit op de commandline:
- 
-```
+Run through the commandline:
+
+```docker
 docker run -e S3_ENDPOINT_NO_PROTOCOL=localhost:8000 -e S3_ACCESS_KEY=my_access_key -e S3_SECRET_KEY=my_secret_key -e S3_SIGNING_REGION=Amsterdam -e NGR_ENVIRONMENT=test generate-atom --help
 ```
 
 ## Config - values.json
 
-Atom implementatie is gebaseerd op de INSPIRE Download Service [Technical Guidance](https://inspire.ec.europa.eu/documents/Network_Services/Technical_Guidance_Download_Services_v3.1.pdf). Zie hieronder voor uitleg documentatie voor de verschillende velden. 
-
+Atom implementatie is based on the INSPIRE Download Service [Technical Guidance](https://inspire.ec.europa.eu/documents/Network_Services/Technical_Guidance_Download_Services_v3.1.pdf). See here below the explanation for the different fields.
 
 ### service_subtitle
 
-Het veld `service_subtitle` mapt naar het veld Resource Abstract in het ISO19119 service metadata record.
+The field `service_subtitle` maps towards the field Resource Abstract in the ISO19119 service metadata record.
 
 ### datasets/downloads/download_content
 
-Het veld `datasets/downloads/download_content` is alleen verplicht wanneer een dataset aangeboden wordt in meerdere opgesplitste bestanden, als dit het geval is bevat dit veld een beschrijving van de structuur van de bestanden. In het geval van een enkele download kan het veld achterwege worden gelaten.
+The field `datasets/downloads/download_content` is only mandatory when a dataset is submitted in multiple files. When this is the case this field describes the structure of the files. In case of a single download this field can be ignored.
 
 ### datasets/dataset_bbox
 
-Het veld `datasets/dataset_bbox` wordt gebruikt om voor elke dataset een `georss:polygon` veld aan te maken. CRS van het veld `datasets/dataset_bbox` moet WGS84 (EPSG:4326) zijn. Deze extent moet overeenkomen met de extent van de Geographic Bounding Box van het corresponderende dataset metadata record.
+The field `datasets/dataset_bbox` will be used to generated a `georss:polygon` for each dataset. The CRS of the field `datasets/dataset_bbox` needs to be WGS84 (EPSG:4326). The extent needs to match the extent of the Geographic Bounding Box van het corresponderende dataset metadata record.
