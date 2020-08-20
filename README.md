@@ -32,11 +32,9 @@ pipenv --rm
 
 ## Usage
 
-De applicatie gebruikt environmental variables voor configuratie. Bij gebruik van
-pipenv worden deze variabelen automatisch ingeladen uit het `.env` bestand. Om te testen
-zonder environmental variabelen kan dat bestand deze weggehaald worden.
+The application uses environmental variables for configuration. With use of pipenv these variables are automatically loaded from the `.env` file. To test without the use of environmental variables the `.env` file can be deleted.
 
-Start de pipenv shell als volgt:
+Start the pipenv shell:
 
 ```bash
 pipenv shell
