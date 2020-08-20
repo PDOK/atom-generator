@@ -90,12 +90,12 @@ To run the docker container you first need to build it and run it through `docke
 - `S3_ENDPOINT_NO_PROTOCOL`
 - `S3_ACCESS_KEY`
 - `S3_SECRET_KEY`
-- `NGR_ENVIRONMENT`
+- `CSW_ENVIRONMENT`
 
 Run through the command-line interface:
 
 ```docker
-docker run -e S3_ENDPOINT_NO_PROTOCOL=localhost:8000 -e S3_ACCESS_KEY=my_access_key -e S3_SECRET_KEY=my_secret_key -e S3_SIGNING_REGION=Amsterdam -e NGR_ENVIRONMENT=test generate-atom --help
+docker run -e S3_ENDPOINT_NO_PROTOCOL=localhost:8000 -e S3_ACCESS_KEY=my_access_key -e S3_SECRET_KEY=my_secret_key -e S3_SIGNING_REGION=Amsterdam -e CSW_ENVIRONMENT=test generate-atom --help
 ```
 
 ## Config - values.json

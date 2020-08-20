@@ -13,7 +13,7 @@ class ValuesParser:
     def __init__(self, config):
         self.minio = config.minio
         self.path = config.config_path
-        self.ngr_base_url = config.ngr_base_url
+        self.csw_base_url = config.csw_base_url
         self.service_url = config.service_url
 
     def parse(self):
@@ -31,7 +31,7 @@ class ValuesParser:
         return dacite.from_dict(
             data_class=self.MODEL,
             data=dict(
-                _ngr_base_url=self.ngr_base_url,
+                _csw_base_url=self.csw_base_url,
                 _service_url=self.service_url,
                 _minio=self.minio,
                 **values

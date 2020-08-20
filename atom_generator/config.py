@@ -7,7 +7,7 @@ from typing import get_args
 from atom_generator.error import AppConfigError
 from atom_generator.minio_client import MinioDAO
 from atom_generator.util import build_uri
-from atom_generator.constants import NGR_URL, NGR_ENVIRONMENT, ENV_VARIABLES
+from atom_generator.constants import CSW_URL, CSW_ENVIRONMENT, ENV_VARIABLES
 
 
 PARAMETER_REGEX = re.compile(r"\{\{\s?[\/\^\#\>]?\s?(\w+)\s?\}\}")
@@ -34,11 +34,11 @@ class Config(object):
     ):
         self._check_environment()
 
-        ngr_env = os.environ[NGR_ENVIRONMENT]
+        csw_env = os.environ[CSW_ENVIRONMENT]
         try:
-            self.ngr_base_url = NGR_URL[ngr_env]
+            self.csw_base_url = CSW_URL[csw_env]
         except KeyError:
-            raise AppConfigError(f"invalid ngr environment { ngr_env }")
+            raise AppConfigError(f"invalid csr environment { csw_env }")
 
         self.config_path = Path(config_path)
         if not self.config_path.exists():

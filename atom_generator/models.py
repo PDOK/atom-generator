@@ -124,7 +124,7 @@ class ServiceFeed:
     service_rights: str
     service_metadata_identifier: str
     datasets: List[Dataset]
-    _ngr_base_url: str = field(repr=False)
+    _csw_base_url: str = field(repr=False)
     _service_url: str = field(repr=False)
     _minio: MinioDAO = field(repr=False)
     __updated: Optional[str] = field(repr=False, default=None)
@@ -146,7 +146,7 @@ class ServiceFeed:
     @property
     def service_opensearch_url(self):
         return (
-            f"{self._ngr_base_url}/geonetwork/opensearch/dut/"
+            f"{self._csw_base_url}/geonetwork/opensearch/dut/"
             f"{self.service_metadata_identifier}/OpenSearchDescription.xml"
         )
 
@@ -159,7 +159,7 @@ class ServiceFeed:
 
     def metadata_url(self, metadata_id):
         return (
-            f"{self._ngr_base_url}/geonetwork/srv/dut/csw?"
+            f"{self._csw_base_url}/geonetwork/srv/dut/csw?"
             f"service=CSW&"
             f"version=2.0.2&"
             f"request=GetRecordById&"
@@ -169,4 +169,4 @@ class ServiceFeed:
         )
 
     def metadata_web_url(self, metadata_id):
-        return f"{self._ngr_base_url}/geonetwork/srv/dut/catalog.search#/metadata/{metadata_id}"
+        return f"{self._csw_base_url}/geonetwork/srv/dut/catalog.search#/metadata/{metadata_id}"

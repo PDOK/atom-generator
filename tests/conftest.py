@@ -46,7 +46,7 @@ local_env = {
     "S3_SECRET_KEY": "miniostorage",
     "S3_SIGNING_REGION": "us-east-1",
     "S3_ENDPOINT_NO_PROTOCOL": "minio:9000",
-    "NGR_ENVIRONMENT": "http://test",
+    "CSW_ENVIRONMENT": "http://test",
 }
 
 
@@ -56,7 +56,7 @@ def _env_vars(monkeypatch):
     monkeypatch.setenv("S3_SECRET_KEY", "secret")
     monkeypatch.setenv("S3_SIGNING_REGION", "test-region")
     monkeypatch.setenv("S3_ENDPOINT_NO_PROTOCOL", "endpoint")
-    monkeypatch.setenv("NGR_ENVIRONMENT", "test")
+    monkeypatch.setenv("CSW_ENVIRONMENT", "test")
 
 
 @pytest.fixture
