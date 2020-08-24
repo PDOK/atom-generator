@@ -30,7 +30,7 @@ def test_render_data_feed(values_new):
 
 def test_render_data_feed_described_by_link_non_inspire(values_new):
     values = values_new.parse()
-    values.datasets[0].dataset_inspire_data_theme = None
+    values.datasets[0].dataset_inspire_data_theme = ""
 
     template = (TEMPLATES_DIR / DATA_FEED_TEMPLATE_NAME).read_text()
     result = render(template, values.datasets[0])
@@ -52,7 +52,6 @@ def test_render_data_feed_described_by_link_inspire(values_new):
     assert bool(result)
 
     described_by_link = '<link rel="describedby" href="https://inspire.ec.europa.eu/theme/hh" type="text/html"/>'
-
     assert described_by_link in result
 
 
