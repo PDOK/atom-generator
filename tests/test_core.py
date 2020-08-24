@@ -53,7 +53,6 @@ def test_render_data_feed_described_by_link_inspire(values_new):
 
     described_by_link = '<link rel="describedby" href="https://inspire.ec.europa.eu/theme/hh" type="text/html"/>'
 
-    print(result)
     assert described_by_link in result
 
 
