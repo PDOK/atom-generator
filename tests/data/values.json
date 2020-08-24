@@ -14,6 +14,7 @@
             "dataset_rights": "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
             "datafeed_summary_nl": "Atom feed voor de download van dataset Top 10 NL v2 (Geografische Namen)",
             "dataset_metadata_identifier": "81ff84ec-42a4-4481-840b-12713bbb5d38",
+            "dataset_inspire_data_theme": "https://inspire.ec.europa.eu/theme/hh",
             "dataset_bbox":{
                 "minx":"3.3",
                 "maxx":"7.24",
