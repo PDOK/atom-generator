@@ -21,6 +21,7 @@
         "miny": "50.73"
       },
       "dataset_metadata_identifier": "81ff84ec-42a4-4481-840b-12713bbb5d38",
+      "dataset_inspire_data_theme": "https://inspire.ec.europa.eu/theme/hh",
       "dataset_metadata_url": "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw?service=CSW&version=2.0.2&request=GetRecordById&outputschema=http://www.isotc211.org/2005/gmd&elementsetname=full&id=81ff84ec-42a4-4481-840b-12713bbb5d38",
       "dataset_metadata_web_url": "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/81ff84ec-42a4-4481-840b-12713bbb5d38",
       "dataset_polygon": "50.73 3.3 50.73 7.24 53.6 7.24 53.6 3.3 50.73 3.3",
