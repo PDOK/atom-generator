@@ -82,7 +82,7 @@ class Dataset:
     datafeed_title_nl: str
     dataset_bbox: Dict[str, str]
     dataset_metadata_identifier: str
-    dataset_inspire_data_theme: str
+    dataset_inspire_data_theme: Optional[str]
     dataset_source_id: str
     dataset_source_id_ns: str
     dataset_rights: str
