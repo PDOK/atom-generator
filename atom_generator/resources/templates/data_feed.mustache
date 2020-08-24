@@ -5,12 +5,7 @@
   <title type="text" xml:lang="nl">{{datafeed_title_nl}}</title>
   <subtitle type="text" xml:lang="nl">{{datafeed_subtitle_nl}}</subtitle>
   <link href="{{datafeed_url}}" rel="self" type="application/atom+xml" title="Dataset Feed" hreflang="nl"/>
-  {{#dataset_inspire_data_theme}}
-  <link rel="describedby" href="{{dataset_inspire_data_theme}}" type="text/html"/>
-  {{/dataset_inspire_data_theme}}
-  {{^dataset_inspire_data_theme}}
-  <link rel="describedby" href="{{dataset_metadata_url}}" type="text/xml"/>
-  {{/dataset_inspire_data_theme}}
+  <link href="{{dataset_metadata_url}}" rel="describedby" type="text/xml"/>
   <link href="{{dataset_metadata_web_url}}" rel="related" type="text/html" hreflang="nl"/>
   <link href="{{service_index_url}}" rel="up" type="application/atom+xml" title="Top Atom Service Feed" hreflang="nl"/>
   <author>
