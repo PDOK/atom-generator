@@ -1,3 +1,4 @@
+import time
 import pytest
 import minio
 from pathlib import Path
@@ -16,6 +17,7 @@ class MockMinio:
             self.object_name = object_name
             self.is_dir = is_dir
             self.size = size
+            self.last_modified = time.strptime("Tue Aug 25 13:45:00 2020")
 
     mock_object = None
 
