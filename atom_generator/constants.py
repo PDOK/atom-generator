@@ -21,7 +21,7 @@ ENV_VARIABLES = {
 
 NGR_URL = {
     "prod": "https://www.nationaalgeoregister.nl",
-    "test": "**",
+    "test": "https://www.ngr.test",
 }
 
 DEFAULT_CONTENT_TYPE = "application/octet-stream"

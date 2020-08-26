@@ -37,7 +37,7 @@ def test_render_data_feed_described_by_link_non_inspire(values_new):
     assert bool(result)
 
     described_by_link = (
-        '<link rel="describedby" href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw?service=CSW&amp'
+        '<link rel="describedby" href="https://www.ngr.test/geonetwork/srv/dut/csw?service=CSW&amp'
         ";version=2.0.2&amp;request=GetRecordById&amp;outputschema=http://www.isotc211.org/2005/gmd&amp"
         ';elementsetname=full&amp;id=81ff84ec-42a4-4481-840b-12713bbb5d38" type="text/xml"/>'
     )
