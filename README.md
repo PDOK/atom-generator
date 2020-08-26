@@ -116,3 +116,4 @@ The field `datasets/downloads/download_content` is only mandatory when a dataset
 ### datasets/dataset_bbox
 
 The field `datasets/dataset_bbox` will be used to generated a `georss:polygon` for each dataset. The CRS of the field `datasets/dataset_bbox` needs to be WGS84 (EPSG:4326). The extent needs to match the extent of the Geographic Bounding Box of the corresponding dataset metadata record.
+
