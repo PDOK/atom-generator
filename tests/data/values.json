@@ -16,10 +16,10 @@
             "dataset_metadata_identifier": "81ff84ec-42a4-4481-840b-12713bbb5d38",
             "dataset_inspire_data_theme": "https://inspire.ec.europa.eu/theme/hh",
             "dataset_bbox":{
-                "minx":"3.3",
-                "maxx":"7.24",
-                "miny":"50.73",
-                "maxy":"53.6"
+                "minx": 3.3,
+                "maxx": 7.24,
+                "miny": 50.73,
+                "maxy": 53.6
             },
             "dataset_source_id": "06b6c650-cdb1-11dd-ad8b-0800200c9a79",
             "dataset_source_id_ns": "http://kadaster",
