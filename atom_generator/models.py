@@ -80,13 +80,14 @@ class Dataset:
     datafeed_name: str
     datafeed_summary_nl: str
     datafeed_title_nl: str
-    dataset_bbox: Dict[str, str]
+    dataset_bbox: Dict[str, float]
     dataset_metadata_identifier: str
     dataset_source_id: str
     dataset_source_id_ns: str
     dataset_rights: str
     datafeed_subtitle_nl: str
     downloads: List[Download]
+    dataset_inspire_data_theme: Optional[str] = ""
 
     @property
     def dataset_polygon(self):

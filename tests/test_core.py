@@ -28,6 +28,33 @@ def test_render_data_feed(values_new):
     assert result != empty_render
 
 
+def test_render_data_feed_described_by_link_non_inspire(values_new):
+    values = values_new.parse()
+    values.datasets[0].dataset_inspire_data_theme = ""
+
+    template = (TEMPLATES_DIR / DATA_FEED_TEMPLATE_NAME).read_text()
+    result = render(template, values.datasets[0])
+    assert bool(result)
+
+    described_by_link = (
+        '<link rel="describedby" href="https://www.ngr.test/geonetwork/srv/dut/csw?service=CSW&amp'
+        ";version=2.0.2&amp;request=GetRecordById&amp;outputschema=http://www.isotc211.org/2005/gmd&amp"
+        ';elementsetname=full&amp;id=81ff84ec-42a4-4481-840b-12713bbb5d38" type="text/xml"/>'
+    )
+    assert described_by_link in result
+
+
+def test_render_data_feed_described_by_link_inspire(values_new):
+    values = values_new.parse()
+
+    template = (TEMPLATES_DIR / DATA_FEED_TEMPLATE_NAME).read_text()
+    result = render(template, values.datasets[0])
+    assert bool(result)
+
+    described_by_link = '<link rel="describedby" href="https://inspire.ec.europa.eu/theme/hh" type="text/html"/>'
+    assert described_by_link in result
+
+
 def test_render_service_feed(values_new):
     values = values_new.parse()
     template = (TEMPLATES_DIR / SERVICE_FEED_TEMPLATE_NAME).read_text()
