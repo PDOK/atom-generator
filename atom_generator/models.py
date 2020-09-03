@@ -1,5 +1,4 @@
 import os
-import datetime
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 
@@ -73,6 +72,10 @@ class Download:
     def download_length(self):
         return self._minio.source_object_size(self.download_file.lstrip("/"))
 
+    @property
+    def download_date(self):
+        return self._minio.source_object_date(self.download_file.lstrip("/"))
+
 
 @nested
 @dataclass
@@ -133,7 +136,7 @@ class ServiceFeed:
     @property
     def updated(self):
         if self.__updated is None:
-            self.__updated = f"{datetime.datetime.utcnow().isoformat()}Z"
+            self.__updated = self.datasets[0].downloads[0].download_date
         return self.__updated
 
     @property

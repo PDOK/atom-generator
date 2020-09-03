@@ -1,3 +1,4 @@
+import time
 import warnings
 import io
 import mimetypes
@@ -156,6 +157,34 @@ class MinioDAO(object):
                 f"object_path '{key} in {self.source_bucket}' points to directory -> should point to file"
             )
         return object_stat.size
+
+    def source_object_date(self, filename):
+        """
+        Gets the last_modified date from a file on the given minio source.
+
+        The file will be taken from the bucket and prepended with the given
+        source_prefix.
+
+        Args:
+            filename: filename in the minio source bucket without the source prefix.
+
+        Returns:
+            str: the last_modified date from the file formatted as a string.
+        """
+        if not filename.strip():
+            raise ValueError("object_path can not be empty")
+
+        key = build_uri(self.source_prefix, filename)
+        object_stat = self._client.stat_object(self.source_bucket, key)
+
+        if not object_stat:
+            raise AppError(f"could not find: {key} in {self.source_bucket}")
+        if object_stat.is_dir:
+            raise AppError(
+                f"object_path '{key} in {self.source_bucket}' points to directory -> should point to file"
+            )
+        # format time.struct_time to a str
+        return time.strftime("%Y-%m-%dT%H:%M:%SZ", object_stat.last_modified)
 
     def __str__(self):
         return (

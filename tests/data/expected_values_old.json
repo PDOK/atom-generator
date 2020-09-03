@@ -37,6 +37,7 @@
           "download_file": "gpkg_part.gpkg",
           "download_id": "http://example.com/base/old/test/file/downloads/gpkg_part.gpkg",
           "download_length": 3,
+          "download_date": "2020-08-25T13:45:00Z",
           "download_mimetype": "application/geopackage+sqlite3",
           "download_title": "Top 10 NL v2 (Geografische Namen) - Parent Feed (CRS) - GeoPackage download (EPSG:28992)",
           "download_url": "http://example.com/base/old/test/file/downloads/gpkg_part.gpkg",
