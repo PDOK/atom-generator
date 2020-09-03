@@ -38,9 +38,10 @@ def test_source_object_date(minio_new):
     assert last_modified == "2020-08-25T13:45:00Z"
 
 
-def test_source_object_date_format(minio_new):
+def test_source_object_date_format_does_not_fail(minio_new):
     minio_dao = minio_new
     last_modified = minio_dao.source_object_date("test.gpkg")
+    # this throws a ValueError Exception when the date does not match the format
     datetime.strptime(last_modified, "%Y-%m-%dT%H:%M:%SZ")
 
 
