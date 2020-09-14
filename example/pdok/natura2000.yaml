@@ -1,0 +1,73 @@
+feeds:
+ - stylesheet: "http://localhost/atom/style/style.xsl"
+   inspire_dls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
+   lang: nl
+   id: "http://geodata.nationaalgeoregister.nl/atom/index.xml"
+   title: "PDOK INSPIRE Download Service 3.0, ATOM - Service Feed"
+   subtitle: "INSPIRE Download Service van PDOK met INSPIRE-plichtige datasets"   
+   self:
+     href: "http://geodata.nationaalgeoregister.nl/atom/index.xml"
+     title: "Dataset Feed"
+   describedby:
+     href: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/xml.metadata.get?uuid=9ff1a13c-d1e0-4150-8523-91cb489ae1a4"
+   search:
+     href: "https://www.nationaalgeoregister.nl/geonetwork/opensearch/dut/9ff1a13c-d1e0-4150-8523-91cb489ae1a4/OpenSearchDescription.xml"
+     title: "Open Search document voor INSPIRE Download service PDOK"
+   rights: "http://creativecommons.org/publicdomain/zero/1.0/deed.nl"
+   updated: "2020-09-01T04:05:50.600Z"
+   author:
+     name: "PDOK Beheer"
+     email: "beheerPDOK@kadaster.nl"
+   entry:
+    - id: "http://geodata.nationaalgeoregister.nl/natura2000/atom/natura2000.xml"
+      title: "Natura 2000 - Parent Feed (CRS)"
+      spatial_dataset_identifier_code: 4bbfdba2-7687-4393-9192-35ff89e6dfd0
+      spatial_dataset_identifier_namespace: "http://www.pdok.nl"
+      link:
+       - rel: describedby
+         href: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/xml.metadata.get?uuid=8829e5dd-c861-4639-a6c8-fdbb6e3440d2"
+         type: "application/xml"
+       - rel: alternate
+         href: "http://geodata.nationaalgeoregister.nl/natura2000/atom/natura2000.xml"
+         type: "application/atom+xml"
+         title: "Natura 2000 - Download Service voorgedefinieerde dataset"
+      updated: "2020-05-24T22:00:00.000Z"
+      summary: "Atom feed voor de download van dataset Natura 2000"
+      polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/28992"
+         label: "Amersfoort / RD New"
+ - lang: nl
+   stylesheet: "http://localhost/atom/style/style.xsl"
+   id: "http://geodata.nationaalgeoregister.nl/natura2000/atom/natura2000.xml"
+   title: "INSPIRE Download Service van Natura 2000"
+   subtitle: "Voorgedefinieerde dataset INSPIRE download service"
+   self:
+     href: "http://geodata.nationaalgeoregister.nl/natura2000/atom/natura2000.xml"
+   describedby:
+     href: "http://www.nationaalgeoregister.nl/geonetwork/srv/dut/xml.metadata.get?uuid=8829e5dd-c861-4639-a6c8-fdbb6e3440d2"
+   link:
+    - href: "http://geodata.nationaalgeoregister.nl/atom/index.xml"
+      rel: up
+      type: "application/atom+xml"
+      title: "Top Atom Download Service Feed"
+   rights: "http://creativecommons.org/publicdomain/mark/1.0/deed.nl"
+   updated: "2020-05-24T22:00:00.000Z"
+   author:
+     name: "Ministerie van EL&I - GIS Competence Center"
+     email: "geodatabeheer.giscc@minlnv.nl"
+   entry:
+    - id: "natura2000.zip"
+      title: "natura2000.zip"
+      updated: "2020-05-24T22:00:00.000Z"
+      link:
+       - rel: alternate
+         href: "http://geodata.nationaalgeoregister.nl/natura2000/extract/natura2000.zip"
+         data: "http://geodata.nationaalgeoregister.nl/natura2000/extract/natura2000.zip"
+         type: "application/xshapefile"
+       - href: "http://geodata.nationaalgeoregister.nl/natura2000/extract/natura2000.zip"
+      rights: "http://creativecommons.org/publicdomain/mark/1.0/deed.nl"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/28992"
+         label: "Amersfoort / RD New"
+      polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1"

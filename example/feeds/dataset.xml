@@ -1,0 +1,60 @@
+<!-- Example "Dataset Feed" -->
+<feed xmlns="http://www.w3.org/2005/Atom"  xmlns:georss="http://www.georss.org/georss" xml:lang="en">
+    <!-- feed title -->
+    <title>XYZ Example INSPIRE Dataset ABC Download</title>
+    <!-- feed subtitle -->
+    <subtitle>INSPIRE Download Service, of organisation XYZ providing dataset ABC for the Hydrography theme</subtitle>
+    <!-- links to INSPIRE Spatial Object Type definitions for this predefined dataset -->
+    <link href="http://inspireregistry.jrc.ec.europa.eu/registers/FCD/items/105" rel="describedby" type="text/html"/>
+    <link href="http://inspireregistry.jrc.ec.europa.eu/registers/FCD/items/412" rel="describedby" type="text/html"/>
+    <!-- self-referencing link to this feed -->
+    <link href="http://xyz.org/data/abc/en.xml" rel="self" type="application/atom+xml"  hreflang="en" title="This document"/>
+    <!-- link to this feed in another language -->
+    <link href="http://xyz.org/data/abc/de.xml" rel="alternate"  type="application/atom+xml" hreflang="de"  title="This document in German"/>
+    <!-- "upward" link to the corresponding download service feed -->
+    <link href="http://xyz.org/download/en.xml" rel="up" type="application/atom+xml" hreflang="en" title="The parent service feed document"/>
+    <!-- identifier -->
+    <id>http://xyz.org/data/abc/waternetwork.xml</id>
+    <!-- rights, access restrictions -->
+    <rights>Copyright (c) 2012, XYZ; all rights reserved</rights>
+    <!-- date/time this feed was last updated -->
+    <updated>2012-03-31T13:45:03Z</updated>
+    <!-- author contact information -->
+    <author>
+        <name>John Doe</name>
+        <email>doe@xyz.org</email>
+    </author>
+    <!-- download the pre-defined dataset in GML format in CRS EPSG:25832 -->
+    <entry>
+        <title>Water network in CRS EPSG:25832 (GML)</title>
+        <link rel="alternate" href="http://xyz.org/data/abc/waternetwork_25832.gml" type="application/gml+xml;version=3.2" hreflang="en" length="34987" title="Water network dataset encoded as a GML 3.2 document in ETRS89 UTM zone 32N (http://www.opengis.net/def/crs/EPSG/0/25832)"/>
+        <id>http://xyz.org/data/abc/waternetwork_25832.gml</id>
+        <updated>2011-06-15T11:12:34Z</updated>
+        <category term="http://www.opengis.net/def/crs/EPSG/0/25832" label="ETRS89 / UTM zone 32N"/>
+    </entry>
+    <!-- download the same pre-defined dataset in GML format in CRS EPSG:4258-->
+    <entry>
+        <title>Water network in CRS EPSG:4258 (GML)</title>
+        <!--file download link-->
+        <link rel="alternate" href="http://xyz.org/data/abc/waternetwork_WGS84.gml" type="application/gml+xml;version=3.2" hreflang="en" length="37762" title="Water Network encoded as a GML 3.2 document in WGS84 geographic coordinates (http://www.opengis.net/def/crs/OGC/1.3/CRS84)"/>
+        <id>http://xyz.org/data/abc/waternetwork_WGS84.gml</id>
+        <updated>2011-06-14T12:22:09Z</updated>
+        <category term="http://www.opengis.net/def/crs/EPSG/0/4258" label="ETRS89"/>
+    </entry>
+    <!-- download the same pre-defined dataset in ShapeFile format in CRS EPSG:25832, ShapeFile is in a single zip archive.-->
+    <entry>
+        <title>Water network in CRS EPSG:25832 (ShapeFile)</title>
+        <link rel="alternate" href="http://xyz.org/data/abc/waternetwork_25832.zip" type="application/xshapefile" hreflang="en" length="89274"  title="Water network dataset encoded as a ShapeFile in ETRS89 UTM zone 32N (http://www.opengis.net/def/crs/EPSG/0/25832)"/>
+        <id>http://xyz.org/data/abc/waternetwork_25832.zip</id>
+        <updated>2011-06-15T11:12:34Z</updated>
+        <category term="http://www.opengis.net/def/crs/EPSG/0/25832" label="ETRS89 / UTM zone 32N"/>
+    </entry>
+    <!-- download the same pre-defined dataset in ShapeFile format in CRS EPSG:4258, ShapeFile is in a single zip archive.-->
+    <entry>
+        <title>Water network in CRS EPSG:4258 (ShapeFile)</title>
+        <link rel="alternate" href="http://xyz.org/data/abc/waternetwork_WGS84.zip" type="application/xshapefile" hreflang="en" length="78973" title="Water Network encoded as a ShapeFile in WGS84 geographic coordinates (http://www.opengis.net/def/crs/OGC/1.3/CRS84)"/>
+        <id>http://xyz.org/data/abc/waternetwork_WGS84.zip</id>
+        <updated>2011-06-14T12:22:09Z</updated>
+        <category term="http://www.opengis.net/def/crs/EPSG/0/4258" label="ETRS89"/>
+    </entry>
+</feed>
