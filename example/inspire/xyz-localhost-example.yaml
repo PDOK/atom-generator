@@ -37,7 +37,7 @@ feeds:
      name: "John Doe"
      email: "doe@localhost"
    entry:
-    - id: "http://localhost/data/waternetwork_feed.xml"
+    - id: "http://localhost/download/waternetwork.xml"
       title: "Water network ABC Dataset Feed"
       updated: "2012-03-31T13:45:03Z"
       spatial_dataset_identifier_code: wn_id1
@@ -63,7 +63,7 @@ feeds:
        - term: "http://www.opengis.net/def/crs/EPSG/0/4258"
          label: ETRS89
 
- - id: "http://localhost/data/abc/waternetwork.xml"
+ - id: "http://localhost/download/waternetwork.xml"
    stylesheet: "http://localhost/atom/style/style.xsl"
    lang: en   
    title: "XYZ Example INSPIRE Dataset ABC Download"

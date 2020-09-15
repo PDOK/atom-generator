@@ -1,9 +1,5 @@
 # atom-generator
 
-[![GitHub license](https://img.shields.io/github/license/PDOK/atom-generator)](https://github.com/PDOK/atom-generator/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/PDOK/atom-generator.svg)](https://github.com/PDOK/atom-generator/releases)
-[![Docker Pulls](https://img.shields.io/docker/pulls/pdok/atom-generator.svg)](https://hub.docker.com/r/pdok/atom-generator)
-
 Creates ATOM feeds based on the [INSPIRE Technical Guidance Download Services v3.1](https://inspire.ec.europa.eu/documents/Network_Services/Technical_Guidance_Download_Services_v3.1.pdf)
 
 ## How to run
@@ -57,7 +53,7 @@ The atom feeds and files can be accessed by the following URL
 |---|---|
 | Service Feed | <http://localhost/download/en.xml>|
 | Dataset Feed | <http://localhost/download/waternetwork.xml> |
-| Dataset Entries | <http://localhost/data/xyz/waternetwork_25832.gml> |
+| Dataset Entries | <http://localhost/data/abc/waternetwork_25832.gml> |
 
 ## How to configure
 
@@ -140,7 +136,7 @@ The Entries within the Dataset Feed that contain a ```data``` configuration will
 
 ### Stylesheet
 
-Through the yaml configuration a stylesheet can be provided, this an make the ATOM Feed more human readable. This can be done though the parameter ```stylesheet``` and needs to be a relative path related to the ATOM feed xml.
+Through the yaml configuration a stylesheet can be provided, this an make the ATOM Feed more human readable. This can be done though the parameter ```stylesheet``` and can be a relative path related to the ATOM feed xml or a absolute path.
 
 ```yaml
 service:
@@ -148,7 +144,7 @@ service:
 ...
 dataset:
  - lang: en
-   stylesheet: "./style/style.xsl"
+   stylesheet: "http://localhost/atom/style/style.xsl"
 ```
 
 ```xml
