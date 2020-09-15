@@ -37,25 +37,24 @@ func ProcessFeed(f Feed) Feed {
 		f.Link[i] = l.SetHrefLang(*f.Lang)
 	}
 
-	for _, e := range f.Entry {
-		for j, l := range e.Link {
-			if l.Data != nil {
-				n := l
-				res, err := http.Head(*l.Data)
+	for _, entry := range f.Entry {
+		for linkIndex, link := range entry.Link {
+			if link.Data != nil {
+				res, err := http.Head(*link.Data)
 				if err != nil {
 					panic(err)
 				}
-				if len(l.Length) == 0 {
-					n.Length = res.Header.Get("Content-Length")
+				if len(link.Length) == 0 {
+					link.Length = res.Header.Get("Content-Length")
 				}
-				if len(l.Type) == 0 {
-					n.Type = res.Header.Get("Content-Type")
+				if len(link.Type) == 0 {
+					link.Type = res.Header.Get("Content-Type")
 				}
 
-				n.Data = nil
-				e.Link[j] = n
+				link.Data = nil
+				entry.Link[linkIndex] = link
 			}
-			e.Link[j] = l.SetHrefLang(*f.Lang)
+			entry.Link[linkIndex] = link.SetHrefLang(*f.Lang)
 		}
 	}
 
