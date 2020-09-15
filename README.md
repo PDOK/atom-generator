@@ -136,7 +136,7 @@ The Entries within the Dataset Feed that contain a ```data``` configuration will
 
 ### Stylesheet
 
-Through the yaml configuration a stylesheet can be provided, this an make the ATOM Feed more human readable. This can be done though the parameter ```stylesheet``` and needs to be a relative path related to the ATOM feed xml.
+Through the yaml configuration a stylesheet can be provided, this an make the ATOM Feed more human readable. This can be done though the parameter ```stylesheet``` and can be a relative path related to the ATOM feed xml or a absolute path.
 
 ```yaml
 service:
@@ -144,7 +144,7 @@ service:
 ...
 dataset:
  - lang: en
-   stylesheet: "./style/style.xsl"
+   stylesheet: "http://localhost/atom/style/style.xsl"
 ```
 
 ```xml
