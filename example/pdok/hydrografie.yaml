@@ -20,7 +20,7 @@ feeds:
      name: "PDOK Beheer"
      email: "beheerPDOK@kadaster.nl"
    entry:
-    - id: "https://service.pdok.nl/simple-host/natura2000.xml"
+    - id: "https://service.pdok.nl/simple-host/hydrografie.xml"
       title: "INSPIRE Download Service van Waterschappen Hydrografie INSPIRE"
       spatial_dataset_identifier_code: 07575774-57a1-4419-bab4-6c88fdeb02b2
       spatial_dataset_identifier_namespace: "http://www.pdok.nl"
@@ -29,7 +29,7 @@ feeds:
          href: "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/csw?service=CSW&version=2.0.2&request=GetRecordById&outputschema=http://www.isotc211.org/2005/gmd&elementsetname=full&id=07575774-57a1-4419-bab4-6c88fdeb02b2"
          type: "application/xml"
        - rel: alternate
-         href: "https://service.pdok.nl/simple-host/natura2000.xml"
+         href: "https://service.pdok.nl/simple-host/hydrografie.xml"
          type: "application/atom+xml"
          title: "INSPIRE Download Service van Waterschappen Hydrografie INSPIRE"
       updated: "2020-05-24T22:00:00.000Z"
@@ -40,11 +40,11 @@ feeds:
          label: "Amersfoort / RD New"
  - lang: nl
    stylesheet: "http://localhost/atom/style/style.xsl"
-   id: "https://service.pdok.nl/simple-host/natura2000.xml"
-   title: "INSPIRE Download Service van Natura 2000"
+   id: "https://service.pdok.nl/simple-host/hydrografie.xml"
+   title: "INSPIRE Download Service van Hydrografie"
    subtitle: "Voorgedefinieerde dataset INSPIRE download service"
    self:
-     href: "https://service.pdok.nl/simple-host/natura2000.xml"
+     href: "https://service.pdok.nl/simple-host/hydrografie.xml"
    link:
     - href: "https://service.pdok.nl/simple-host/index.xml"
       rel: up
@@ -59,7 +59,7 @@ feeds:
      name: "Ministerie van EL&I - GIS Competence Center"
      email: "geodatabeheer.giscc@minlnv.nl"
    entry:
-    - id: "https://service.pdok.nl/simple-host/natura2000.xml"
+    - id: "https://service.pdok.nl/simple-host/hydrografie.xml"
       title: "INSPIRE Download Service van Waterschappen Hydrografie INSPIRE"
       updated: "2020-05-24T22:00:00.000Z"
       link:
