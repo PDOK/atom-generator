@@ -1,7 +1,9 @@
 FROM golang:1.14-alpine3.12 AS build-env
 
 RUN apk update && apk upgrade && \
-   apk add --no-cache bash git pkgconfig gcc g++ libc-dev
+   apk add --no-cache bash git pkgconfig gcc g++ libc-dev ca-certificates
+
+RUN update-ca-certificates
 
 ENV GO111MODULE=on
 ENV GOPROXY=https://proxy.golang.org
@@ -35,5 +37,6 @@ WORKDIR /
 
 # Import from builder.
 COPY --from=build-env /atom /
+COPY --from=build-env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 CMD ["atom"]
