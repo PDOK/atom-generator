@@ -8,7 +8,7 @@ Creates ATOM feeds based on the [INSPIRE Technical Guidance Download Services v3
 go run . -f=./example/inspire/xyz-example.yaml
 ```
 
-or write to a directory
+or write to an existing directory
 
 ```bash
 mkdir output
