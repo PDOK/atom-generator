@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/url"
 	"strings"
 )
 
@@ -86,6 +87,13 @@ func (f *Feed) StyleSheet() []byte {
 // Valid function that validates the Feed based on TG Requirements
 // For now a simple validation
 func (f *Feed) Valid() bool {
+
+	// TG Requirement 9
+	// The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed
+	_, err := url.ParseRequestURI(f.ID)
+	if err != nil {
+		return false
+	}
 
 	// TG Requirement 10
 	// The 'rights' element of a feed shall contain information about rights or restrictions for that feed.

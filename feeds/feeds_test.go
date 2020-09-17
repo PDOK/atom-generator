@@ -188,6 +188,7 @@ func TestValid(t *testing.T) {
 	}{
 		0: {
 			input: Feed{
+				ID:      "http://xyz.org/download/en.xml",
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
 				Updated: "2012-03-31T13:45:03Z",
 				Author: Author{
@@ -199,6 +200,7 @@ func TestValid(t *testing.T) {
 		},
 		1: {
 			input: Feed{
+				ID:      "http://xyz.org/download/en.xml",
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
 				Updated: "2012-03-31T13:45:03Z",
 			},
@@ -206,6 +208,7 @@ func TestValid(t *testing.T) {
 		},
 		2: {
 			input: Feed{
+				ID:      "http://xyz.org/download/en.xml",
 				Updated: "2012-03-31T13:45:03Z",
 				Author: Author{
 					Name:  "John Doe",
@@ -216,11 +219,18 @@ func TestValid(t *testing.T) {
 		},
 		3: {
 			input: Feed{
+				ID:     "http://xyz.org/download/en.xml",
 				Rights: "Copyright (c) 2012, XYZ; all rights reserved",
 				Author: Author{
 					Name:  "John Doe",
 					Email: "doe@xyz.org",
 				},
+			},
+			expected: false,
+		},
+		4: {
+			input: Feed{
+				ID: "xyzorgdownloaden.xml",
 			},
 			expected: false,
 		},
