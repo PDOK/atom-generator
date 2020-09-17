@@ -12,6 +12,13 @@ const (
 	defaultlang = `en`
 )
 
+const (
+	invalidid       = "invalid 'id', needs to be an HTTP URI see TG Requirement 9"
+	invalidrights   = "invalid 'rights', cannot be empty see TG Requirement 10"
+	invaliddatetime = "invalid 'updated', needs to be a valid datetime with timezone see TG Requirement 11"
+	invalidauthor   = "invalid 'author', cannot be empty see TG Requirement 12"
+)
+
 // GetDefaultFeedProperties returns mandatory/static ServiceFeed properties
 func GetDefaultFeedProperties() Feed {
 	var f Feed

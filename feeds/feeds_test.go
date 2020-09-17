@@ -1,6 +1,7 @@
 package feeds
 
 import (
+	"errors"
 	"os"
 	"strings"
 	"testing"
@@ -184,7 +185,7 @@ func TestGetFileName(t *testing.T) {
 func TestValid(t *testing.T) {
 	var tests = []struct {
 		input    Feed
-		expected bool
+		expected error
 	}{
 		0: {
 			input: Feed{
@@ -196,7 +197,7 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			expected: true,
+			expected: nil,
 		},
 		1: {
 			input: Feed{
@@ -204,7 +205,7 @@ func TestValid(t *testing.T) {
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
 				Updated: "2012-03-31T13:45:03Z",
 			},
-			expected: false,
+			expected: errors.New(invalidauthor),
 		},
 		2: {
 			input: Feed{
@@ -215,7 +216,7 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			expected: false,
+			expected: errors.New(invalidrights),
 		},
 		3: {
 			input: Feed{
@@ -226,21 +227,31 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			expected: false,
+			expected: errors.New(invaliddatetime),
 		},
 		4: {
 			input: Feed{
 				ID: "xyzorgdownloaden.xml",
 			},
-			expected: false,
+			expected: errors.New(invalidid),
 		},
 	}
 
 	for k, test := range tests {
 		b := test.input.Valid()
 
-		if b != test.expected {
-			t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
+		if b == nil {
+			if b != test.expected {
+				t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
+			}
+		} else {
+			if test.expected != nil {
+				if b.Error() != test.expected.Error() {
+					t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
+				}
+			} else {
+				t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
+			}
 		}
 	}
 }

@@ -49,8 +49,8 @@ func main() {
 
 	// write both service and dataset feeds
 	for _, feed := range processedFeeds {
-		if !feed.Valid() {
-			log.Fatalf(`ATOM Feeds with the id: %s is not valid`, feed.ID)
+		if err := feed.Valid(); err != nil {
+			log.Fatalf(`ATOM Feeds with the id: %s is not valid. With the error: %s`, feed.ID, err.Error())
 		}
 
 		filename, err := feed.GetFileName()

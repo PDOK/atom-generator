@@ -2,11 +2,13 @@ package feeds
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/url"
 	"strings"
+	"time"
 )
 
 // Feeds struct
@@ -86,34 +88,34 @@ func (f *Feed) StyleSheet() []byte {
 
 // Valid function that validates the Feed based on TG Requirements
 // For now a simple validation
-func (f *Feed) Valid() bool {
+func (f *Feed) Valid() error {
 
 	// TG Requirement 9
 	// The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed
 	_, err := url.ParseRequestURI(f.ID)
 	if err != nil {
-		return false
+		return errors.New(invalidid)
 	}
 
 	// TG Requirement 10
 	// The 'rights' element of a feed shall contain information about rights or restrictions for that feed.
 	if len(f.Rights) == 0 {
-		return false
+		return errors.New(invalidrights)
 	}
 
 	// TG Requirement 11
 	// The 'updated' element of a feed shall contain the date, time and timezone at which the feed was last updated.
-	if len(f.Updated) == 0 {
-		return false
+	if _, err := time.Parse(`2006-01-02T15:04:05Z`, f.Updated); err != nil {
+		return errors.New(invaliddatetime)
 	}
 
 	// TG Requirement 12
 	// The 'author' element of a feed shall contain current contact information for an individual or organisation responsible for the feed. At the minimum, a name and email address shall be provided as contact information.
 	if len(f.Author.Name) == 0 || len(f.Author.Email) == 0 {
-		return false
+		return errors.New(invalidauthor)
 	}
 
-	return true
+	return nil
 }
 
 // Entry struct
