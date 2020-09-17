@@ -282,7 +282,7 @@ func TestFeedWriteATOM(t *testing.T) {
 			_, err := os.Stat(tt.args.filename)
 			err2 := os.Remove(tt.args.filename)
 			if err2 != nil {
-				t.Errorf("Error occured: %s", err2)
+				t.Errorf("Error occurred: %s", err2)
 			}
 			if os.IsNotExist(err) {
 				t.Errorf("File not created.")
