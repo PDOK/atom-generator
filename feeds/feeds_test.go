@@ -235,7 +235,7 @@ func TestValid(t *testing.T) {
 	}
 }
 
-func TestFeed_WriteATOM(t *testing.T) {
+func TestFeedWriteATOM(t *testing.T) {
 	type fields struct {
 	}
 	type args struct {
@@ -270,7 +270,7 @@ func TestFeed_WriteATOM(t *testing.T) {
 	}
 }
 
-func TestFeed_StyleSheet(t *testing.T) {
+func TestFeedStyleSheet(t *testing.T) {
 
 	var testEmpty = ""
 	var test = "test"

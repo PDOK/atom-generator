@@ -157,7 +157,5 @@ dataset:
 
 ### Validation
 
-When you generate a atom feed you can validate it, using the test "Conformance Class Download Pre-defined Atom" at the 
-following site https://inspire.ec.europa.eu/validator/ 
+When you generate a atom feed you can validate it, using the test "Conformance Class Download Pre-defined Atom" at the following site <https://inspire.ec.europa.eu/validator/>
 ![inspire_test](./images/pre-defined-atom.png)
-
