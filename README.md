@@ -40,7 +40,7 @@ docker run -it -v `pwd`/example/inspire:/config -v `pwd`/output:/output --name a
 
 ### docker-compose
 
-In the ```example``` directory is a more complex docker-compose example that will proxy some dummy files from a minio instance though a lighttpd web services as a atom feed. This example is based on the Service and Dataset Feed from the **INSPIRE Technical Guidance Download Services v3.1**
+In the [```example```](./example/README.md) directory is a more complex docker-compose example that will proxy some dummy files from a minio instance though a lighttpd web services as a atom feed. This example is based on the Service and Dataset Feed from the **INSPIRE Technical Guidance Download Services v3.1**
 
 ```docker-compose
 docker-compose up -d
