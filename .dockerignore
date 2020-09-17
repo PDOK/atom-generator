@@ -1,7 +1,0 @@
-atom_gen_aanlevering_*/
-out/
-venv/
-.env
-.venv/
-.pytest_cache/
-*.egg-info/

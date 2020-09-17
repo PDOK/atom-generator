@@ -1,0 +1,58 @@
+<!-- Example "Download Service Feed" -->
+<feed xmlns="http://www.w3.org/2005/Atom"  xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="en">
+    <!-- feed title -->
+    <title>XYZ Example INSPIRE Download Service</title>
+    <!-- feed subtitle -->
+    <subtitle>INSPIRE Download Service of organisation XYZ providing Hydrography data</subtitle>
+    <!-- link to download service ISO 19139 metadata -->
+    <link href="http://xyz.org/metadata/iso19139_document.xml" rel="describedby" type="application/xml"/>
+    <!-- self-referencing link to this feed -->
+    <link href="http://xyz.org/download/en.xml" rel="self" type="application/atom+xml"  hreflang="en" title="This document"/>
+    <!-- link to Open Search definition file for this service-->
+    <link rel="search" href="http://xyz.org/search/opensearchdescription.xml" type="application/opensearchdescription+xml" title="Open Search Description for XYZ download service"/>
+    <!-- link to this feed in another language -->
+    <link href="http://xyz.org/download/de.xml" rel="alternate"  type="application/atom+xml" hreflang="de"  title="The download service information in German"/>
+    <!-- link to another representation of this feed (HTML) -->
+    <link href="http://xyz.org/download/index.html" rel="alternate"  type="text/html" hreflang="en"  title="An HTML version of this document"/>
+    <!-- link to this feed in HTML in another language-->
+    <link href="http://xyz.org/download/index.de.html" rel="alternate"  type="text/html" hreflang="de"  title="An HTML version of this document in German"/>
+    <!-- identifier -->
+    <id>http://xyz.org/download/en.xml</id>
+    <!-- rights, access restrictions -->
+    <rights>Copyright (c) 2012, XYZ; all rights reserved</rights>
+    <!-- date/time this feed was last updated -->
+    <updated>2012-03-31T13:45:03Z</updated>
+    <!-- author contact information -->
+    <author>
+        <name>John Doe</name>
+        <email>doe@xyz.org</email>
+    </author>
+    <!-- entry for a "Dataset Feed" for a pre-defined dataset -->
+    <entry>
+        <!-- title for "Dataset Feed" for pre-defined dataset -->
+        <title>Water network ABC Dataset Feed</title>
+        <!--Spatial Dataset Unique Resource Identifier for this dataset-->
+        <inspire_dls:spatial_dataset_identifier_code>wn_id1</inspire_dls:spatial_dataset_identifier_code>
+        <inspire_dls:spatial_dataset_identifier_namespace>http://xyz.org/</inspire_dls:spatial_dataset_identifier_namespace>
+        <!-- link to dataset metadata record -->
+        <link href="http://xyz.org/metadata/abcISO19139.xml" rel="describedby" type="application/xml"/>
+        <!-- link to "Dataset Feed" for pre-defined dataset -->
+        <link rel="alternate" href="http://xyz.org/data/waternetwork_feed.xml" type="application/atom+xml"  hreflang="en" title="Feed containing the pre-defined waternetwork dataset (in one or more downloadable formats)"/>
+        <!-- link to related WFS implementing Direct Access operations -->
+        <link rel="related" href="http://xyz.org/wfs?request=GetCapabilities&amp;service=WFS&amp;versio n=2.0.0" type="application/xml" title="Service implementing Direct Access operations"/>
+        <!-- identifier for "Dataset Feed" for pre-defined dataset -->
+        <id>http://xyz.org/data/waternetwork_feed.xml</id>
+        <!-- rights, access info for pre-defined dataset -->
+        <rights>Copyright (c) 2002-2011, XYZ; all rights reserved</rights>
+        <!-- last date/time this entry was updated -->
+        <updated>2012-03-31T13:45:03Z</updated>
+        <!-- summary -->
+        <summary>This is the entry for water network ABC Dataset</summary>
+        <!-- optional GeoRSS-Simple polygon outlining the bounding box of the pre-defined dataset described by the entry. Must be lat lon -->
+        <georss:polygon>47.202 5.755 55.183 5.755 55.183 15.253 47.202 15.253 47.202 5.755</georss:polygon>
+        <!-- CRSs in which the pre-defined Dataset is available -->
+        <category term="http://www.opengis.net/def/crs/EPSG/0/25832" label="ETRS89 / UTM zone 32N"/>
+        <category term="http://www.opengis.net/def/crs/EPSG/0/4258" label="ETRS89"/>
+    </entry>
+    <!-- Any number of "Dataset Feeds" for different pre-defined datasets may be added here as separate entries -->
+</feed>

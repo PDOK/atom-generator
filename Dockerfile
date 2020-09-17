@@ -1,72 +1,42 @@
-FROM python:3.8-slim AS base
-# We choose python-slim instead of alpine, a buildspeed vs image size tradeoff.
+FROM golang:1.14-alpine3.12 AS build-env
 
-# Install base dependencies
-RUN apt-get update && apt-get -y upgrade && apt-get install -y --no-install-recommends \
-        libxml2 \
-        libxslt-dev && \
-        apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk upgrade && \
+   apk add --no-cache bash git pkgconfig gcc g++ libc-dev ca-certificates
 
-# --- COMPILE-IMAGE ---
-FROM base AS compile-image
-ENV DEBIAN_FRONTEND=noninteractive
+RUN update-ca-certificates
 
-# Install dev dependencies
-RUN apt-get update && apt-get -y upgrade && apt-get install -y --no-install-recommends \
-        gcc \
-        python3-dev \
-        libxml2-dev && \
-        apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV GO111MODULE=on
+ENV GOPROXY=https://proxy.golang.org
 
-RUN pip install --upgrade --no-cache-dir setuptools pip
-RUN pip install --no-cache-dir pipenv
+ENV TZ Europe/Amsterdam
 
-# Copy source
-WORKDIR /code
-COPY . /code
+WORKDIR /go/src/app
 
-# Install packages, including the dev (test) packages.
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv --three
-RUN pipenv sync --dev
+ADD . /go/src/app
 
-# Run pytest tests.
-# pipenv check fails due to a github connection error. Pipenv check scans for python
-# vulnerabilities amongst other things. We might want to debug and fix this:
-# RUN PIPENV_PYUP_API_KEY="" pipenv check &&
-RUN pipenv run pytest
+# Because of how the layer caching system works in Docker, the go mod download
+# command will _ only_ be re-run when the go.mod or go.sum file change
+# (or when we add another docker instruction this line)
+RUN go mod download
 
-# Cleanup test packages. We want to use pipenv uninstall --all-dev but that command is
-# broken. See: https://github.com/pypa/pipenv/issues/3722
-RUN pipenv --rm && \
-    PIPENV_VENV_IN_PROJECT=1 pipenv --three && \
-    pipenv sync
+# set crosscompiling fla 0/1 => disabled/enabled
+ENV CGO_ENABLED=0
+# compile linux only
+ENV GOOS=linux
+# run tests
+RUN go test ./... -covermode=atomic
 
-# --- BUILD IMAGE ---
-FROM base AS build-image
-WORKDIR /code
+RUN go build -v -ldflags='-s -w -linkmode auto' -a -installsuffix cgo -o /atom atom.go
 
-COPY --from=compile-image /code/atom_generator.egg-info/ /code/atom_generator.egg-info/
-COPY --from=compile-image /code/atom_generator /code/atom_generator
-COPY --from=compile-image /code/.venv /code/.venv
+FROM scratch
 
-# Make sure we use the virtualenv:
-ENV PATH="/code/.venv/bin:$PATH"
+# important for time conversion
+ENV TZ Europe/Amsterdam
 
-# Metadata params
-ARG BUILD_DATE
-ARG VERSION
-ARG GIT_COMMIT_HASH
-ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /
 
-# Metadata
-LABEL org.opencontainers.image.authors="Anton Bakker anton.bakker@kadaster.nl" \
-      org.opencontainers.image.created=$BUILD_DATE \
-      org.opencontainers.image.title="atom-generator" \
-      org.opencontainers.image.description="Atom Generator CLI to generate static (Inspire) Atom Feeds" \
-      org.opencontainers.image.url="https://github.com/PDOK/atom-generator" \
-      org.opencontainers.image.vendor="PDOK" \
-      org.opencontainers.image.source="https://github.com/PDOK/atom-generator" \
-      org.opencontainers.image.revision=$GIT_COMMIT_HASH \
-      org.opencontainers.image.version=$VERSION
+# Import from builder.
+COPY --from=build-env /atom /
+COPY --from=build-env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-ENTRYPOINT [ "generate-atom" ]
+CMD ["atom"]

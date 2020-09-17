@@ -1,0 +1,141 @@
+feeds:
+ - inspire_dls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
+   lang: en
+   id: "http://xyz.org/download/en.xml"
+   title: "XYZ Example INSPIRE Download Service"
+   subtitle: "INSPIRE Download Service of organisation XYZ providing Hydrography data"
+   self:
+     href: "http://xyz.org/download/en.xml"
+     type: "application/atom+xml"
+     title: "This document"
+   describedby:
+     href: "http://xyz.org/metadata/iso19139_document.xml"
+     type: "application/xml"
+   link: 
+    - rel: search
+      href: "http://xyz.org/search/opensearchdescription.xml"
+      type: "application/opensearchdescription+xml"
+      title: "Open Search Description for XYZ download service"
+    - href: "http://xyz.org/download/de.xml"
+      rel: alternate
+      type: "application/atom+xml"
+      hreflang: de
+      title: "The download service information in German"
+    - href: "http://xyz.org/download/index.html"
+      rel: alternate
+      type: "text/html"
+      title: "An HTML version of this document"
+    - href: "http://xyz.org/download/index.de.html"
+      rel: alternate
+      type: "text/html"
+      hreflang: de
+      title: "An HTML version of this document in German"
+   rights: "Copyright (c) 2012, XYZ; all rights reserved"
+   updated: "2012-03-31T13:45:03Z"
+   author:
+     name: "John Doe"
+     email: "doe@xyz.org"
+   entry:
+    - title: "Water network ABC Dataset Feed"
+      spatial_dataset_identifier_code: wn_id1
+      spatial_dataset_identifier_namespace: "http://xyz.org/"
+      link:
+       - rel: describedby
+         href: "http://xyz.org/metadata/abcISO19139.xml"
+         type: "application/xml"
+       - rel: alternate
+         href: "http://xyz.org/data/waternetwork_feed.xml"
+         type: "application/atom+xml"
+         title: "Feed containing the pre-defined waternetwork dataset (in one or more downloadable formats)"
+       - rel: related
+         href: "http://xyz.org/wfs?request=GetCapabilities&service=WFS&version=2.0.0"
+         type: "application/xml"
+         title: "Service implementing Direct Access operations"
+      id: "http://xyz.org/data/waternetwork_feed.xml"
+      rights: "Copyright (c) 2002-2011, XYZ; all rights reserved"
+      updated: "2012-03-31T13:45:03Z"
+      summary: "This is the entry for water network ABC Dataset"
+      polygon: "47.202 5.755 55.183 5.755 55.183 15.253 47.202 15.253 47.202 5.755"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/25832"
+         label: "ETRS89 / UTM zone 32N"
+       - term: "http://www.opengis.net/def/crs/EPSG/0/4258"
+         label: ETRS89
+ - lang: en
+   id: "http://xyz.org/data/abc/waternetwork.xml"
+   title: "XYZ Example INSPIRE Dataset ABC Download"
+   subtitle: "INSPIRE Download Service, of organisation XYZ providing dataset ABC for the Hydrography theme"
+   link:
+    - href: "http://inspireregistry.jrc.ec.europa.eu/registers/FCD/items/105"
+      rel: describedby
+      type: "text/html"
+    - href: "http://inspireregistry.jrc.ec.europa.eu/registers/FCD/items/412"
+      rel: describedby
+      type: "text/html"
+    - href: "http://xyz.org/data/abc/en.xml"
+      rel: self
+      type: "application/atom+xml"
+      title: "This document"
+    - href: "http://xyz.org/data/abc/de.xml"
+      rel: alternate
+      type: "application/atom+xml"
+      hreflang: de
+      title: "This document in German"
+    - href: "http://xyz.org/download/en.xml"
+      rel: up
+      type: "application/atom+xml"
+      title: "The parent service feed document"
+   rights: "Copyright (c) 2012, XYZ; all rights reserved"
+   updated: "2012-03-31T13:45:03Z"
+   author:
+     name: "John Doe"
+     email: "doe@xyz.org"
+   entry: 
+    - title: "Water network in CRS EPSG:25832 (GML)"
+      link:
+       - rel: alternate
+         href: "http://xyz.org/data/abc/waternetwork_25832.gml"
+         type: "application/gml+xml;version=3.2"
+         length: 34987
+         title: "Water network dataset encoded as a GML 3.2 document in ETRS89 UTM zone 32N (http://www.opengis.net/def/crs/EPSG/0/25832)"
+      id: "http://xyz.org/data/abc/waternetwork_25832.gml"
+      updated: "2011-06-15T11:12:34Z"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/25832"
+         label: "ETRS89 / UTM zone 32N"
+    - title: "Water network in CRS EPSG:4258 (GML)"
+      link:
+       - rel: alternate
+         href: "http://xyz.org/data/abc/waternetwork_WGS84.gml"
+         type: "application/gml+xml;version=3.2"
+         length: 37762
+         title: "Water Network encoded as a GML 3.2 document in WGS84 geographic coordinates (http://www.opengis.net/def/crs/OGC/1.3/CRS84)"
+      id: "http://xyz.org/data/abc/waternetwork_WGS84.gml"
+      updated: "2011-06-14T12:22:09Z"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/4258"
+         label: ETRS89
+    - title: "Water network in CRS EPSG:25832 (ShapeFile)"
+      link:
+       - rel: alternate
+         href: "http://xyz.org/data/abc/waternetwork_25832.zip"
+         type: "application/xshapefile"
+         length: 89274
+         title: "Water network dataset encoded as a ShapeFile in ETRS89 UTM zone 32N (http://www.opengis.net/def/crs/EPSG/0/25832)"
+      id: "http://xyz.org/data/abc/waternetwork_25832.zip"
+      updated: "2011-06-15T11:12:34Z"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/25832"
+         label: "ETRS89 / UTM zone 32N"
+    - title: "Water network in CRS EPSG:4258 (ShapeFile)"
+      link:
+       - rel: alternate
+         href: "http://xyz.org/data/abc/waternetwork_WGS84.zip"
+         type: "application/xshapefile"
+         length: 78973
+         title: "Water Network encoded as a ShapeFile in WGS84 geographic coordinates (http://www.opengis.net/def/crs/OGC/1.3/CRS84)"
+      id: "http://xyz.org/data/abc/waternetwork_WGS84.zip"
+      updated: "2011-06-14T12:22:09Z"
+      category:
+       - term: "http://www.opengis.net/def/crs/EPSG/0/4258"
+         label: ETRS89
