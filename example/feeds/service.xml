@@ -39,7 +39,7 @@
         <!-- link to "Dataset Feed" for pre-defined dataset -->
         <link rel="alternate" href="http://xyz.org/data/waternetwork_feed.xml" type="application/atom+xml"  hreflang="en" title="Feed containing the pre-defined waternetwork dataset (in one or more downloadable formats)"/>
         <!-- link to related WFS implementing Direct Access operations -->
-        <link rel="related" href="http://xyz.org/wfs?request=GetCapabilities&amp;service=WFS&amp;versio n=2.0.0" type="application/xml" title="Service implementing Direct Access operations"/>
+        <link rel="related" href="http://xyz.org/wfs?request=GetCapabilities&amp;service=WFS&amp;version=2.0.0" type="application/xml" title="Service implementing Direct Access operations"/>
         <!-- identifier for "Dataset Feed" for pre-defined dataset -->
         <id>http://xyz.org/data/waternetwork_feed.xml</id>
         <!-- rights, access info for pre-defined dataset -->
