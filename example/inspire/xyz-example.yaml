@@ -15,7 +15,7 @@ feeds:
     - rel: search
       href: "http://xyz.org/search/opensearchdescription.xml"
       type: "application/opensearchdescription+xml"
-      title: "Open Search Description for XYZ download service"
+      title: "Open Search Description for XYZ Example INSPIRE Download Service"
     - href: "http://xyz.org/download/de.xml"
       rel: alternate
       type: "application/atom+xml"
