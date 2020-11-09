@@ -1,0 +1,36 @@
+[http]
+  # Add the router
+  [http.routers]
+    [http.routers.atom]
+      entryPoints = ["web"]
+      service = "service-atom"
+      rule = "PathPrefix(`/atom`)"
+    [http.routers.download]
+      entryPoints = ["web"]
+      service = "service-download"
+      rule = "PathPrefix(`/download`)"
+    [http.routers.data]
+      entryPoints = ["web"]
+      middlewares = ["data-stripprefix"]
+      service = "service-data"
+      rule = "PathPrefix(`/data`)"
+
+  # Add the middleware
+  [http.middlewares]    
+    [http.middlewares.data-stripprefix.stripPrefix]
+      prefixes = ["/data"]    
+
+  # Add the service
+  [http.services]
+    [http.services.service-atom]
+      [http.services.service-atom.loadBalancer]
+        [[http.services.service-atom.loadBalancer.servers]]
+          url = "http://style/"
+    [http.services.service-download]
+      [http.services.service-download.loadBalancer]
+        [[http.services.service-download.loadBalancer.servers]]
+          url = "http://lighttpd/"
+    [http.services.service-data]
+      [http.services.service-data.loadBalancer]
+        [[http.services.service-data.loadBalancer.servers]]
+          url = "http://minio:9000/"
