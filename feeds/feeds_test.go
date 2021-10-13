@@ -148,6 +148,105 @@ func TestGenerateATOM(t *testing.T) {
   <inspire_dls:spatial_dataset_identifier_namespace>http://xyz.org/</inspire_dls:spatial_dataset_identifier_namespace>
  </entry>
 </feed>`},
+		2: {input: Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
+			Lang:     sp("nl"),
+			ID:       "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+			Title:    "INSPIRE Download Service van Ruimtelijke plannen",
+			Subtitle: "Voorgedefinieerde dataset INSPIRE download service",
+			Link: []Link{
+				{
+					Rel:  "self",
+					Href: "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+				},
+				{
+					Rel:   "up",
+					Href:  "https://service.pdok.nl/kadaster/plu/atom/v1_0/index.xml",
+					Type:  "application/atom+xml",
+					Title: "Top Atom Download Service Feed",
+				},
+				{
+					Rel:  "describedby",
+					Href: "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36",
+					Type: "text/html",
+				},
+				{
+					Rel:   "related",
+					Href:  "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36",
+					Type:  "text/html",
+					Title: "NGR pagina voor deze dataset",
+				},
+			},
+			Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
+			Updated: "2021-10-01T00:00:00Z",
+			Author: Author{
+				Name:  "PDOK Beheer",
+				Email: "beheerPDOK@kadaster.nl",
+			},
+			Entry: []Entry{
+				{
+					ID:      "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+					Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
+					Updated: "2021-10-01T00:00:00Z",
+					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
+					Title:   "INSPIRE Download Service van Ruimtelijke plannen",
+					Content: "Bestand is opgesplitst per featuretype, elk featuretype heeft een eigen download bestand",
+					Link: []Link{
+						{
+							Rel:    "section",
+							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_A.gml.gz",
+							Type:   "application/x-gmz",
+							Length: "3547244",
+						},
+						{
+							Rel:    "section",
+							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_P.gml.gz",
+							Type:   "application/x-gmz",
+							Length: "15714976",
+						},
+						{
+							Rel:    "section",
+							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_X.gml.gz",
+							Type:   "application/x-gmz",
+							Length: "45621084",
+						},
+					},
+					Category: []Category{
+						{
+							Term:  "https://www.opengis.net/def/crs/EPSG/0/28992",
+							Label: "Amersfoort / RD New",
+						},
+					},
+				},
+			},
+		},
+			expected: `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="nl">
+ <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
+ <title>INSPIRE Download Service van Ruimtelijke plannen</title>
+ <subtitle>Voorgedefinieerde dataset INSPIRE download service</subtitle>
+ <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml" rel="self" hreflang="nl"></link>
+ <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/index.xml" rel="up" type="application/atom+xml" hreflang="nl" title="Top Atom Download Service Feed"></link>
+ <link href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36" rel="describedby" type="text/html" hreflang="nl"></link>
+ <link href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36" rel="related" type="text/html" hreflang="nl" title="NGR pagina voor deze dataset"></link>
+ <rights>http://creativecommons.org/publicdomain/zero/1.0/deed.nl</rights>
+ <updated>2021-10-01T00:00:00Z</updated>
+ <author>
+  <name>PDOK Beheer</name>
+  <email>beheerPDOK@kadaster.nl</email>
+ </author>
+ <entry>
+  <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
+  <title>INSPIRE Download Service van Ruimtelijke plannen</title>
+  <content>Bestand is opgesplitst per featuretype, elk featuretype heeft een eigen download bestand</content>
+  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_A.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="3547244"></link>
+  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_P.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="15714976"></link>
+  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_X.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="45621084"></link>
+  <rights>http://creativecommons.org/publicdomain/zero/1.0/deed.nl</rights>
+  <updated>2021-10-01T00:00:00Z</updated>
+  <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
+  <category term="https://www.opengis.net/def/crs/EPSG/0/28992" label="Amersfoort / RD New"></category>
+ </entry>
+</feed>`},
 	}
 
 	for k, test := range tests {
