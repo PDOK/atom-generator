@@ -122,6 +122,7 @@ func (f *Feed) Valid() error {
 type Entry struct {
 	ID                                string     `xml:"id" yaml:"id"`
 	Title                             string     `xml:"title,omitempty" yaml:"title"`
+	Content                           string     `xml:"content,omitempty" yaml:"content"`
 	Summary                           string     `xml:"summary,omitempty" yaml:"summary"`
 	Link                              []Link     `xml:"link" yaml:"link"`
 	Rights                            string     `xml:"rights,omitempty" yaml:"rights"`
