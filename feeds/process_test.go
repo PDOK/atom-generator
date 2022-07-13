@@ -10,13 +10,12 @@ func sp(s string) *string {
 }
 
 func TestProcessFeed(t *testing.T) {
+	var updated = "2021-06-15T11:12:34Z"
 	var tests = []struct {
-		input    Feed
-		expected Feed
+		input    Feeds
+		expected []Feed
 	}{
-		0: {input: Feed{},
-			expected: Feed{Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en")}},
-		1: {input: Feed{
+		0: {input: Feeds{Feeds: []Feed{Feed{
 			ID:    "http://xyz.org/download/en.xml",
 			Title: "XYZ Example INSPIRE Download Service",
 			Self: &Link{
@@ -32,8 +31,8 @@ func TestProcessFeed(t *testing.T) {
 					Title: "Open Search Description for XYZ download service",
 				},
 			},
-		},
-			expected: Feed{
+		}}},
+			expected: []Feed{Feed{
 				Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
 				ID:    "http://xyz.org/download/en.xml",
 				Title: "XYZ Example INSPIRE Download Service",
@@ -53,9 +52,9 @@ func TestProcessFeed(t *testing.T) {
 						Title:    "This document",
 					},
 				},
-			},
+			}},
 		},
-		2: {input: Feed{
+		1: {input: Feeds{Feeds: []Feed{Feed{
 			ID:    "http://xyz.org/download/en.xml",
 			Title: "XYZ Example INSPIRE Download Service",
 			Self: &Link{
@@ -84,8 +83,8 @@ func TestProcessFeed(t *testing.T) {
 					Title:    "An HTML version of this document in German",
 				},
 			},
-		},
-			expected: Feed{
+		}}},
+			expected: []Feed{Feed{
 				Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
 				ID:    "http://xyz.org/download/en.xml",
 				Title: "XYZ Example INSPIRE Download Service",
@@ -125,14 +124,60 @@ func TestProcessFeed(t *testing.T) {
 						Title:    "This document",
 					},
 				},
+			}},
+		},
+		2: {input: Feeds{Feeds: []Feed{Feed{
+			ID:    "http://xyz.org/download/en.xml",
+			Title: "Service Feed",
+			Entry: []Entry{
+				Entry{
+					ID: "datafeed-1",
+				},
+			},
+		},
+			Feed{
+				ID:    "datafeed-1",
+				Title: "Data Feed",
+				Entry: []Entry{
+					Entry{
+						ID:      "download-entry",
+						Updated: &updated,
+					},
+				},
+			},
+		}},
+			expected: []Feed{Feed{
+				Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
+				ID:      "http://xyz.org/download/en.xml",
+				Title:   "Service Feed",
+				Updated: &updated,
+				Entry: []Entry{
+					Entry{
+						ID:      "datafeed-1",
+						Updated: &updated,
+					},
+				},
+			},
+				Feed{
+					Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
+					ID:      "datafeed-1",
+					Title:   "Data Feed",
+					Updated: &updated,
+					Entry: []Entry{
+						Entry{
+							ID:      "download-entry",
+							Updated: &updated,
+						},
+					},
+				},
 			},
 		},
 	}
 
 	for k, test := range tests {
-		output := ProcessFeed(test.input)
+		output := ProcessFeeds(test.input)
 		if !reflect.DeepEqual(output, test.expected) {
-			t.Errorf("test: %d, expected: %v+ \ngot: %v+", k, test.expected, output)
+			t.Errorf("test: %d, expected: \n%#v+ \ngot: \n%#v+", k, test.expected, output)
 		}
 	}
 }

@@ -40,16 +40,11 @@ func main() {
 		log.Fatalf("error: %v", err)
 	}
 
-	var processedFeeds []feeds.Feed
-
-	// process Feeds
-	for _, feed := range config.Feeds {
-		processedFeeds = append(processedFeeds, feeds.ProcessFeed(feed))
-	}
+	processedFeeds := feeds.ProcessFeeds(config)
 
 	// write both service and dataset feeds
 	for _, feed := range processedFeeds {
-		if err := feed.Valid(); err != nil {
+		if err := feed.Valid(processedFeeds); err != nil {
 			log.Fatalf(`ATOM Feeds with the id: %s is not valid. With the error: %s`, feed.ID, err.Error())
 		}
 

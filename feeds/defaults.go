@@ -17,6 +17,7 @@ const (
 	invalidrights   = "invalid 'rights', cannot be empty see TG Requirement 10"
 	invaliddatetime = "invalid 'updated', needs to be a valid datetime with timezone see TG Requirement 11"
 	invalidauthor   = "invalid 'author', cannot be empty see TG Requirement 12"
+	invalidupdated  = "invalid 'updated', updated is required see TG Requirements 11"
 )
 
 // GetDefaultFeedProperties returns mandatory/static ServiceFeed properties
