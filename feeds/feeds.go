@@ -109,8 +109,6 @@ func (f *Feed) Valid(processedfeed []Feed) error {
 	// The 'updated' element of a feed shall contain the date, time and timezone at which the feed was last updated.
 
 	for _, entry := range f.Entry {
-		// nestedfeed := entry.nestedFeed(processedfeed)
-		// if nestedfeed == nil {
 		if entry.Updated == nil {
 			return errors.New(invaliddatetime)
 		}
