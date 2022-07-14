@@ -8,24 +8,14 @@ import (
 )
 
 func TestGenerateATOM(t *testing.T) {
+	var updated = "2012-03-31T13:45:03Z"
+	var recentupdated = "2021-10-01T00:00:00Z"
 	var tests = []struct {
-		input    Feed
+		input    Feeds
+		updated  *string
 		expected string
 	}{
-		0: {input: Feed{},
-			expected: `<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xml:lang="en">
- <id></id>
- <title></title>
- <subtitle></subtitle>
- <rights></rights>
- <updated></updated>
- <author>
-  <name></name>
-  <email></email>
- </author>
-</feed>`},
-		1: {input: Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
+		0: {input: Feeds{Feeds: []Feed{Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
 			Lang:     sp("en"),
 			ID:       "http://xyz.org/download/en.xml",
 			Title:    "XYZ Example INSPIRE Download Service",
@@ -68,7 +58,7 @@ func TestGenerateATOM(t *testing.T) {
 				},
 			},
 			Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
-			Updated: "2012-03-31T13:45:03Z",
+			Updated: &updated,
 			Author: Author{
 				Name:  "John Doe",
 				Email: "doe@xyz.org",
@@ -77,7 +67,7 @@ func TestGenerateATOM(t *testing.T) {
 				{
 					ID:                                "http://xyz.org/data/waternetwork_feed.xml",
 					Rights:                            "Copyright (c) 2002-2011, XYZ; all rights reserved",
-					Updated:                           "2012-03-31T13:45:03Z",
+					Updated:                           &updated,
 					Summary:                           "This is the entry for water network ABC Dataset",
 					Polygon:                           "47.202 5.755 55.183 5.755 55.183 15.253 47.202 15.253 47.202 5.755",
 					Title:                             "Water network ABC Dataset Feed",
@@ -115,6 +105,8 @@ func TestGenerateATOM(t *testing.T) {
 				},
 			},
 		},
+		},
+		},
 			expected: `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="en">
  <id>http://xyz.org/download/en.xml</id>
@@ -148,7 +140,7 @@ func TestGenerateATOM(t *testing.T) {
   <inspire_dls:spatial_dataset_identifier_namespace>http://xyz.org/</inspire_dls:spatial_dataset_identifier_namespace>
  </entry>
 </feed>`},
-		2: {input: Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
+		1: {input: Feeds{Feeds: []Feed{Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
 			Lang:     sp("nl"),
 			ID:       "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
 			Title:    "INSPIRE Download Service van Ruimtelijke plannen",
@@ -177,7 +169,7 @@ func TestGenerateATOM(t *testing.T) {
 				},
 			},
 			Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
-			Updated: "2021-10-01T00:00:00Z",
+			Updated: &recentupdated,
 			Author: Author{
 				Name:  "PDOK Beheer",
 				Email: "beheerPDOK@kadaster.nl",
@@ -186,7 +178,7 @@ func TestGenerateATOM(t *testing.T) {
 				{
 					ID:      "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
 					Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
-					Updated: "2021-10-01T00:00:00Z",
+					Updated: &recentupdated,
 					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
 					Title:   "INSPIRE Download Service van Ruimtelijke plannen",
 					Content: "Bestand is opgesplitst per featuretype, elk featuretype heeft een eigen download bestand",
@@ -219,6 +211,7 @@ func TestGenerateATOM(t *testing.T) {
 				},
 			},
 		},
+		}},
 			expected: `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="nl">
  <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
@@ -250,8 +243,8 @@ func TestGenerateATOM(t *testing.T) {
 	}
 
 	for k, test := range tests {
-		p := ProcessFeed(test.input)
-		output := p.GenerateATOM()
+		p := ProcessFeeds(test.input)
+		output := p[0].GenerateATOM()
 		if string(output) != test.expected {
 			t.Errorf("test: %d, expected: %s \ngot: %s", k, test.expected, string(output))
 		}
@@ -282,6 +275,7 @@ func TestGetFileName(t *testing.T) {
 }
 
 func TestValid(t *testing.T) {
+	var updated = "2021-03-31T13:45:03Z"
 	var tests = []struct {
 		input    Feed
 		expected error
@@ -290,7 +284,7 @@ func TestValid(t *testing.T) {
 			input: Feed{
 				ID:      "http://xyz.org/download/en.xml",
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
-				Updated: "2012-03-31T13:45:03Z",
+				Updated: &updated,
 				Author: Author{
 					Name:  "John Doe",
 					Email: "doe@xyz.org",
@@ -302,14 +296,14 @@ func TestValid(t *testing.T) {
 			input: Feed{
 				ID:      "http://xyz.org/download/en.xml",
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
-				Updated: "2012-03-31T13:45:03Z",
+				Updated: &updated,
 			},
 			expected: errors.New(invalidauthor),
 		},
 		2: {
 			input: Feed{
 				ID:      "http://xyz.org/download/en.xml",
-				Updated: "2012-03-31T13:45:03Z",
+				Updated: &updated,
 				Author: Author{
 					Name:  "John Doe",
 					Email: "doe@xyz.org",
@@ -338,7 +332,6 @@ func TestValid(t *testing.T) {
 
 	for k, test := range tests {
 		b := test.input.Valid()
-
 		if b == nil {
 			if b != test.expected {
 				t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)

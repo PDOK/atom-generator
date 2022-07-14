@@ -5,10 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/url"
+	"sort"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // Feeds struct
@@ -38,7 +40,7 @@ type Feed struct {
 	Link []Link `xml:"link" yaml:"link"`
 
 	Rights  string  `xml:"rights" yaml:"rights"`
-	Updated string  `xml:"updated" yaml:"updated"`
+	Updated *string `xml:"updated" yaml:"updated,omitempty"`
 	Author  Author  `xml:"author" yaml:"author"`
 	Entry   []Entry `xml:"entry" yaml:"entry"`
 }
@@ -105,7 +107,19 @@ func (f *Feed) Valid() error {
 
 	// TG Requirement 11
 	// The 'updated' element of a feed shall contain the date, time and timezone at which the feed was last updated.
-	if _, err := time.Parse(`2006-01-02T15:04:05Z`, f.Updated); err != nil {
+
+	for _, entry := range f.Entry {
+		if entry.Updated == nil {
+			return errors.New(invaliddatetime)
+		}
+		if _, err := time.Parse(`2006-01-02T15:04:05Z`, *entry.Updated); err != nil {
+			return errors.New(invaliddatetime)
+		}
+	}
+	if f.Updated == nil {
+		return errors.New(invaliddatetime)
+	}
+	if _, err := time.Parse(`2006-01-02T15:04:05Z`, *f.Updated); err != nil {
 		return errors.New(invaliddatetime)
 	}
 
@@ -118,6 +132,50 @@ func (f *Feed) Valid() error {
 	return nil
 }
 
+// Function that retrieves values from updated fields and returns the most recent updated field
+func (f *Feed) recentUpdated(feeds Feeds) {
+	for index, entry := range f.Entry {
+		if entry.Updated == nil {
+			nestedfeed := entry.nestedFeed(feeds.Feeds)
+			if nestedfeed != nil {
+				updated := nestedfeed.recentUpdatedEntry()
+				f.Entry[index].Updated = updated
+			}
+		}
+	}
+	if f.Updated == nil {
+		feedUpdated := f.recentUpdatedEntry()
+		f.Updated = feedUpdated
+	}
+}
+
+func (e Entry) nestedFeed(feeds []Feed) *Feed {
+	for _, feed := range feeds {
+		if e.ID == feed.ID {
+			return &feed
+		}
+	}
+	return nil
+}
+
+func (f *Feed) recentUpdatedEntry() *string {
+	var updatedfields []string
+
+	for _, entry := range f.Entry {
+		if entry.Updated == nil {
+		} else {
+			updatedfields = append(updatedfields, *entry.Updated)
+		}
+	}
+	sort.Sort(sort.Reverse(sort.StringSlice(updatedfields)))
+	if len(updatedfields) == 0 {
+		return nil
+	} else {
+		return &updatedfields[0]
+	}
+
+}
+
 // Entry struct
 type Entry struct {
 	ID                                string     `xml:"id" yaml:"id"`
@@ -126,7 +184,7 @@ type Entry struct {
 	Summary                           string     `xml:"summary,omitempty" yaml:"summary"`
 	Link                              []Link     `xml:"link" yaml:"link"`
 	Rights                            string     `xml:"rights,omitempty" yaml:"rights"`
-	Updated                           string     `xml:"updated" yaml:"updated"`
+	Updated                           *string    `xml:"updated" yaml:"updated,omitempty"`
 	Polygon                           string     `xml:"georss:polygon,omitempty" yaml:"polygon"`
 	Category                          []Category `xml:"category" yaml:"category"`
 	SpatialDatasetIdentifierCode      string     `xml:"inspire_dls:spatial_dataset_identifier_code,omitempty" yaml:"spatial_dataset_identifier_code"`
