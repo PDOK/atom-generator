@@ -90,7 +90,7 @@ func (f *Feed) StyleSheet() []byte {
 
 // Valid function that validates the Feed based on TG Requirements
 // For now a simple validation
-func (f *Feed) Valid(processedfeed []Feed) error {
+func (f *Feed) Valid() error {
 
 	// TG Requirement 9
 	// The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed

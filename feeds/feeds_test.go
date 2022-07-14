@@ -277,9 +277,8 @@ func TestGetFileName(t *testing.T) {
 func TestValid(t *testing.T) {
 	var updated = "2021-03-31T13:45:03Z"
 	var tests = []struct {
-		input         Feed
-		processedfeed []Feed
-		expected      error
+		input    Feed
+		expected error
 	}{
 		0: {
 			input: Feed{
@@ -291,8 +290,7 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			processedfeed: []Feed{},
-			expected:      nil,
+			expected: nil,
 		},
 		1: {
 			input: Feed{
@@ -300,8 +298,7 @@ func TestValid(t *testing.T) {
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
 				Updated: &updated,
 			},
-			processedfeed: []Feed{},
-			expected:      errors.New(invalidauthor),
+			expected: errors.New(invalidauthor),
 		},
 		2: {
 			input: Feed{
@@ -312,8 +309,7 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			processedfeed: []Feed{},
-			expected:      errors.New(invalidrights),
+			expected: errors.New(invalidrights),
 		},
 		3: {
 			input: Feed{
@@ -324,20 +320,18 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			processedfeed: []Feed{},
-			expected:      errors.New(invaliddatetime),
+			expected: errors.New(invaliddatetime),
 		},
 		4: {
 			input: Feed{
 				ID: "xyzorgdownloaden.xml",
 			},
-			processedfeed: []Feed{},
-			expected:      errors.New(invalidid),
+			expected: errors.New(invalidid),
 		},
 	}
 
 	for k, test := range tests {
-		b := test.input.Valid(test.processedfeed)
+		b := test.input.Valid()
 		if b == nil {
 			if b != test.expected {
 				t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
