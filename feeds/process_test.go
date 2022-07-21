@@ -15,7 +15,7 @@ func TestProcessFeed(t *testing.T) {
 		input    Feeds
 		expected []Feed
 	}{
-		0: {input: Feeds{Feeds: []Feed{Feed{
+		0: {input: Feeds{Feeds: []Feed{{
 			ID:    "http://xyz.org/download/en.xml",
 			Title: "XYZ Example INSPIRE Download Service",
 			Self: &Link{
@@ -32,7 +32,7 @@ func TestProcessFeed(t *testing.T) {
 				},
 			},
 		}}},
-			expected: []Feed{Feed{
+			expected: []Feed{{
 				Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
 				ID:    "http://xyz.org/download/en.xml",
 				Title: "XYZ Example INSPIRE Download Service",
@@ -54,7 +54,7 @@ func TestProcessFeed(t *testing.T) {
 				},
 			}},
 		},
-		1: {input: Feeds{Feeds: []Feed{Feed{
+		1: {input: Feeds{Feeds: []Feed{{
 			ID:    "http://xyz.org/download/en.xml",
 			Title: "XYZ Example INSPIRE Download Service",
 			Self: &Link{
@@ -84,7 +84,7 @@ func TestProcessFeed(t *testing.T) {
 				},
 			},
 		}}},
-			expected: []Feed{Feed{
+			expected: []Feed{{
 				Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
 				ID:    "http://xyz.org/download/en.xml",
 				Title: "XYZ Example INSPIRE Download Service",
@@ -126,45 +126,45 @@ func TestProcessFeed(t *testing.T) {
 				},
 			}},
 		},
-		2: {input: Feeds{Feeds: []Feed{Feed{
+		2: {input: Feeds{Feeds: []Feed{{
 			ID:    "http://xyz.org/download/en.xml",
 			Title: "Service Feed",
 			Entry: []Entry{
-				Entry{
+				{
 					ID: "datafeed-1",
 				},
 			},
 		},
-			Feed{
+			{
 				ID:    "datafeed-1",
 				Title: "Data Feed",
 				Entry: []Entry{
-					Entry{
+					{
 						ID:      "download-entry",
 						Updated: &updated,
 					},
 				},
 			},
 		}},
-			expected: []Feed{Feed{
+			expected: []Feed{{
 				Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
 				ID:      "http://xyz.org/download/en.xml",
 				Title:   "Service Feed",
 				Updated: &updated,
 				Entry: []Entry{
-					Entry{
+					{
 						ID:      "datafeed-1",
 						Updated: &updated,
 					},
 				},
 			},
-				Feed{
+				{
 					Xmlns: "http://www.w3.org/2005/Atom", Georss: "http://www.georss.org/georss", Lang: sp("en"),
 					ID:      "datafeed-1",
 					Title:   "Data Feed",
 					Updated: &updated,
 					Entry: []Entry{
-						Entry{
+						{
 							ID:      "download-entry",
 							Updated: &updated,
 						},

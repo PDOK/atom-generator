@@ -51,7 +51,7 @@ type Feed struct {
 // The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed
 func (f *Feed) GetFileName() (string, error) {
 	if !strings.Contains(f.ID, `http`) {
-		return ``, fmt.Errorf("Not a valid ID was provided, got: `%s`", f.ID)
+		return ``, fmt.Errorf("not a valid ID was provided, got: `%s`", f.ID)
 	}
 
 	parts := strings.Split(f.ID, `/`)

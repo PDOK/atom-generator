@@ -15,7 +15,7 @@ func TestGenerateATOM(t *testing.T) {
 		updated  *string
 		expected string
 	}{
-		0: {input: Feeds{Feeds: []Feed{Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
+		0: {input: Feeds{Feeds: []Feed{{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
 			Lang:     sp("en"),
 			ID:       "http://xyz.org/download/en.xml",
 			Title:    "XYZ Example INSPIRE Download Service",
@@ -140,7 +140,7 @@ func TestGenerateATOM(t *testing.T) {
   <inspire_dls:spatial_dataset_identifier_namespace>http://xyz.org/</inspire_dls:spatial_dataset_identifier_namespace>
  </entry>
 </feed>`},
-		1: {input: Feeds{Feeds: []Feed{Feed{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
+		1: {input: Feeds{Feeds: []Feed{{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
 			Lang:     sp("nl"),
 			ID:       "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
 			Title:    "INSPIRE Download Service van Ruimtelijke plannen",
@@ -257,7 +257,7 @@ func TestGetFileName(t *testing.T) {
 		expected string
 	}{
 		0: {input: Feed{ID: `http://xyz.org/download/en.xml`}, expected: `en.xml`},
-		1: {input: Feed{ID: `not a URL.xml`}, expected: "Not a valid ID was provided, got: `not a URL.xml`"},
+		1: {input: Feed{ID: `not a URL.xml`}, expected: "not a valid ID was provided, got: `not a URL.xml`"},
 	}
 
 	for k, test := range tests {

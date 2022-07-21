@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/pdok/atom-generator/feeds"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 var file, output *string
