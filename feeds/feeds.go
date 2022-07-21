@@ -5,12 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/url"
 	"sort"
 	"strings"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 )
 
 // Feeds struct
@@ -51,7 +50,7 @@ type Feed struct {
 // The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed
 func (f *Feed) GetFileName() (string, error) {
 	if !strings.Contains(f.ID, `http`) {
-		return ``, fmt.Errorf("Not a valid ID was provided, got: `%s`", f.ID)
+		return ``, fmt.Errorf("not a valid ID was provided, got: `%s`", f.ID)
 	}
 
 	parts := strings.Split(f.ID, `/`)
@@ -91,6 +90,18 @@ func (f *Feed) StyleSheet() []byte {
 // Valid function that validates the Feed based on TG Requirements
 // For now a simple validation
 func (f *Feed) Valid() error {
+
+	// TG Requirement 5
+	// The 'title' element of an Atom feed shall be populated with a human readable title for the feed.
+	if len(f.Title) == 0 {
+		return errors.New(invalidtitle)
+	}
+
+	// TG Recommendation 1
+	// The 'subtitle' element of an Atom feed may be populated with a human readable subtitle for the feed.
+	if len(f.Subtitle) == 0 {
+		log.Println(warningsubtitle)
+	}
 
 	// TG Requirement 9
 	// The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed
