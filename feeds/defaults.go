@@ -13,6 +13,7 @@ const (
 )
 
 const (
+	invalidtitle    = "invalid 'title' need to be human readable title for the feed see TG Requirement 5"
 	invalidid       = "invalid 'id', needs to be an HTTP URI see TG Requirement 9"
 	invalidrights   = "invalid 'rights', cannot be empty see TG Requirement 10"
 	invaliddatetime = "invalid 'updated', needs to be a valid datetime with timezone see TG Requirement 11"
@@ -20,12 +21,16 @@ const (
 	invalidupdated  = "invalid 'updated', updated is required see TG Requirements 11"
 )
 
+const (
+	warningsubtitle = "missing 'subtitle' may be a human readable subtitle for the feed see TG Recommandation 1"
+)
+
 // GetDefaultFeedProperties returns mandatory/static ServiceFeed properties
 func GetDefaultFeedProperties() Feed {
 	var f Feed
 
-	f.Xmlns = "http://www.w3.org/2005/Atom"
-	f.Georss = "http://www.georss.org/georss"
+	f.Xmlns = "http://www.w3.org/2005/Atom"   // TG Requirement 2 - Technical Guidance Download Services v3.1
+	f.Georss = "http://www.georss.org/georss" // TG Requirement 3 - Technical Guidance Download Services v3.1
 
 	if f.Lang == nil {
 		l := defaultlang

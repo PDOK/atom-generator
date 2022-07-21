@@ -283,6 +283,7 @@ func TestValid(t *testing.T) {
 		0: {
 			input: Feed{
 				ID:      "http://xyz.org/download/en.xml",
+				Title:   "XYZ Example INSPIRE Download Service",
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
 				Updated: &updated,
 				Author: Author{
@@ -295,6 +296,7 @@ func TestValid(t *testing.T) {
 		1: {
 			input: Feed{
 				ID:      "http://xyz.org/download/en.xml",
+				Title:   "XYZ Example INSPIRE Download Service",
 				Rights:  "Copyright (c) 2012, XYZ; all rights reserved",
 				Updated: &updated,
 			},
@@ -303,6 +305,7 @@ func TestValid(t *testing.T) {
 		2: {
 			input: Feed{
 				ID:      "http://xyz.org/download/en.xml",
+				Title:   "XYZ Example INSPIRE Download Service",
 				Updated: &updated,
 				Author: Author{
 					Name:  "John Doe",
@@ -315,6 +318,7 @@ func TestValid(t *testing.T) {
 			input: Feed{
 				ID:     "http://xyz.org/download/en.xml",
 				Rights: "Copyright (c) 2012, XYZ; all rights reserved",
+				Title:  "XYZ Example INSPIRE Download Service",
 				Author: Author{
 					Name:  "John Doe",
 					Email: "doe@xyz.org",
@@ -324,9 +328,16 @@ func TestValid(t *testing.T) {
 		},
 		4: {
 			input: Feed{
-				ID: "xyzorgdownloaden.xml",
+				ID:    "xyzorgdownloaden.xml",
+				Title: "XYZ Example INSPIRE Download Service",
 			},
 			expected: errors.New(invalidid),
+		},
+		5: {
+			input: Feed{
+				ID: "http://xyz.org/download/en.xml",
+			},
+			expected: errors.New(invalidtitle),
 		},
 	}
 

@@ -91,6 +91,18 @@ func (f *Feed) StyleSheet() []byte {
 // For now a simple validation
 func (f *Feed) Valid() error {
 
+	// TG Requirement 5
+	// The 'title' element of an Atom feed shall be populated with a human readable title for the feed.
+	if len(f.Title) == 0 {
+		return errors.New(invalidtitle)
+	}
+
+	// TG Recommendation 1
+	// The 'subtitle' element of an Atom feed may be populated with a human readable subtitle for the feed.
+	if len(f.Subtitle) == 0 {
+		log.Println(warningsubtitle)
+	}
+
 	// TG Requirement 9
 	// The 'id' element of a feed shall contain an HTTP URI which dereferences to the feed
 	_, err := url.ParseRequestURI(f.ID)
