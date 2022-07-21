@@ -5,12 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/url"
 	"sort"
 	"strings"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 )
 
 // Feeds struct
