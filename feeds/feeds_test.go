@@ -104,9 +104,8 @@ func TestGenerateATOM(t *testing.T) {
 					},
 				},
 			},
-		},
-		},
-		},
+		}}},
+			// language=xml
 			expected: `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="en">
  <id>http://xyz.org/download/en.xml</id>
@@ -208,10 +207,44 @@ func TestGenerateATOM(t *testing.T) {
 							Label: "Amersfoort / RD New",
 						},
 					},
+				}, {
+					ID:      "https://foo.bar/baz.xml",
+					Rights:  "foo",
+					Updated: &recentupdated,
+					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
+					Title:   "Test met bbox en time attributes",
+					Content: "Bestand is opgesplitst per bbox én time (wow!)",
+					Link: []Link{
+						{
+							Rel:    "section",
+							Href:   "https://foo.bar/baz.zip",
+							Type:   "application/zip",
+							Length: "1",
+							Bbox:   sp("1 1 1 1"),
+							Time:   sp("2001-01-01T01:01:01Z"),
+						},
+						{
+							Rel:    "section",
+							Href:   "https://foo.bar/baz.zip",
+							Type:   "application/zip",
+							Length: "2",
+							Bbox:   sp("2 2 2 2"),
+							Time:   sp("2002-02-02T02:02:02Z"),
+						},
+						{
+							Rel:    "section",
+							Href:   "https://foo.bar/baz.zip",
+							Type:   "application/zip",
+							Length: "3",
+							Bbox:   sp("3 3 3 3"),
+							Time:   sp("2003-03-03T03:03:03Z"),
+						},
+					},
 				},
 			},
 		},
 		}},
+			// language=xml
 			expected: `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="nl">
  <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
@@ -238,6 +271,17 @@ func TestGenerateATOM(t *testing.T) {
   <updated>2021-10-01T00:00:00Z</updated>
   <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
   <category term="https://www.opengis.net/def/crs/EPSG/0/28992" label="Amersfoort / RD New"></category>
+ </entry>
+ <entry>
+  <id>https://foo.bar/baz.xml</id>
+  <title>Test met bbox en time attributes</title>
+  <content>Bestand is opgesplitst per bbox én time (wow!)</content>
+  <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="1" time="2001-01-01T01:01:01Z" bbox="1 1 1 1"></link>
+  <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="2" time="2002-02-02T02:02:02Z" bbox="2 2 2 2"></link>
+  <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="3" time="2003-03-03T03:03:03Z" bbox="3 3 3 3"></link>
+  <rights>foo</rights>
+  <updated>2021-10-01T00:00:00Z</updated>
+  <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
  </entry>
 </feed>`},
 	}
@@ -324,7 +368,7 @@ func TestValid(t *testing.T) {
 					Email: "doe@xyz.org",
 				},
 			},
-			expected: errors.New(invaliddatetime),
+			expected: errors.New(invalidupdated),
 		},
 		4: {
 			input: Feed{
@@ -338,6 +382,65 @@ func TestValid(t *testing.T) {
 				ID: "http://xyz.org/download/en.xml",
 			},
 			expected: errors.New(invalidtitle),
+		},
+		6: {
+			input: Feed{
+				ID:      "http://boo.bar/baz.xml",
+				Title:   "foo",
+				Rights:  "foo",
+				Updated: &updated,
+				Author:  Author{Name: "foo", Email: "bar@baz.cuz"},
+				Entry: []Entry{{
+					Updated: nil,
+				}},
+			},
+			expected: errors.New(invalidupdated),
+		},
+		7: {
+			input: Feed{
+				ID:      "http://boo.bar/baz.xml",
+				Title:   "foo",
+				Rights:  "foo",
+				Updated: &updated,
+				Author:  Author{Name: "foo", Email: "bar@baz.cuz"},
+				Entry: []Entry{{
+					Updated: &updated,
+					Link: []Link{{
+						Bbox: sp("1 2.0 3.14 a"),
+					}}}},
+			},
+			expected: errors.New(invalidlinkbbox),
+		},
+		8: {
+			input: Feed{
+				ID:      "http://boo.bar/baz.xml",
+				Title:   "foo",
+				Rights:  "foo",
+				Updated: &updated,
+				Author:  Author{Name: "foo", Email: "bar@baz.cuz"},
+				Entry: []Entry{{
+					Updated: &updated,
+					Link: []Link{{
+						Time: sp("0000-00-00T00:00:00Z"),
+					}}}},
+			},
+			expected: errors.New(invalidlinktime),
+		},
+		9: {
+			input: Feed{
+				ID:      "http://boo.bar/baz.xml",
+				Title:   "foo",
+				Rights:  "foo",
+				Updated: &updated,
+				Author:  Author{Name: "foo", Email: "bar@baz.cuz"},
+				Entry: []Entry{{
+					Updated: &updated,
+					Link: []Link{{
+						Time: sp("1970-01-01T00:00:00Z"),
+						Bbox: sp("1 2 3 4"),
+					}}}},
+			},
+			expected: nil,
 		},
 	}
 

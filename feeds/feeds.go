@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/url"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -118,20 +119,51 @@ func (f *Feed) Valid() error {
 
 	// TG Requirement 11
 	// The 'updated' element of a feed shall contain the date, time and timezone at which the feed was last updated.
-
 	for _, entry := range f.Entry {
 		if entry.Updated == nil {
-			return errors.New(invaliddatetime)
+			return errors.New(invalidupdated)
 		}
 		if _, err := time.Parse(`2006-01-02T15:04:05Z`, *entry.Updated); err != nil {
 			return errors.New(invaliddatetime)
 		}
 	}
 	if f.Updated == nil {
-		return errors.New(invaliddatetime)
+		return errors.New(invalidupdated)
 	}
 	if _, err := time.Parse(`2006-01-02T15:04:05Z`, *f.Updated); err != nil {
 		return errors.New(invaliddatetime)
+	}
+
+	// TG Recommendation 11
+	// Where a dataset is provided in multiple physical files: a `time` attribute may be used to describe the temporal extent of a particular file.
+	// If this is used, then the value of this attribute should be structured according to the ISO 8601 standard.
+	for _, entry := range f.Entry {
+		for _, link := range entry.Link {
+			if link.Time == nil {
+				continue
+			}
+			if _, err := time.Parse(`2006-01-02T15:04:05Z`, *link.Time); err != nil {
+				return errors.New(invalidlinktime)
+			}
+		}
+	}
+
+	// TG Recommendation 10
+	// Where a dataset is provided in multiple physical files: a `bbox` attribute may be used to describe the geospatial extent of a particular file.
+	// If this is used, then the value of this attribute should be structured according to the georss:box structure.
+	for _, entry := range f.Entry {
+		for _, link := range entry.Link {
+			if link.Bbox == nil {
+				continue
+			}
+			matched, err := regexp.MatchString(`^\d+(\.\d+)? \d+(\.\d+)? \d+(\.\d+)? \d+(\.\d+)?$`, *link.Bbox)
+			if !matched {
+				return errors.New(invalidlinkbbox)
+			}
+			if err != nil {
+				return errors.New("error while matching bbox regex: " + err.Error())
+			}
+		}
 	}
 
 	// TG Requirement 12
@@ -217,6 +249,8 @@ type Link struct {
 	Hreflang *string `xml:"hreflang,attr,omitempty" yaml:"hreflang"`
 	Length   string  `xml:"length,attr,omitempty" yaml:"length"`
 	Title    string  `xml:"title,attr,omitempty" yaml:"title"`
+	Time     *string `xml:"time,attr,omitempty" yaml:"time"`
+	Bbox     *string `xml:"bbox,attr,omitempty" yaml:"bbox"`
 }
 
 // SetHrefLang function assigns a default Lang is none is given
