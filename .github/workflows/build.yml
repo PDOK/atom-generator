@@ -1,6 +1,6 @@
 name: build
 env:
-  image: pdokcr.azurecr.io/pdok/atom-generator
+  image: pdok/atom-generator
 on:
   push:
     tags:
