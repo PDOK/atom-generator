@@ -19,6 +19,8 @@ const (
 	invaliddatetime = "invalid 'updated', needs to be a valid datetime with timezone see TG Requirement 11"
 	invalidauthor   = "invalid 'author', cannot be empty see TG Requirement 12"
 	invalidupdated  = "invalid 'updated', updated is required see TG Requirements 11"
+	invalidlinktime = "invalid 'link.time', needs to be a valid datetime with timezone see TG Recommendation 11"
+	invalidlinkbbox = "invalid 'link.bbox', needs to be a valid georss:bbox see TG Recommendation 10"
 )
 
 const (
