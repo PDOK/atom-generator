@@ -156,7 +156,7 @@ func (f *Feed) Valid() error {
 			if link.Bbox == nil {
 				continue
 			}
-			matched, err := regexp.MatchString(`^\d+(\.\d+)? \d+(\.\d+)? \d+(\.\d+)? \d+(\.\d+)?$`, *link.Bbox)
+			matched, err := regexp.MatchString(`^-?\d+(\.\d+)? -?\d+(\.\d+)? -?\d+(\.\d+)? -?\d+(\.\d+)?$`, *link.Bbox)
 			if !matched {
 				return errors.New(invalidlinkbbox)
 			}
