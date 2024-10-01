@@ -4,9 +4,9 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/url"
+	"os"
 	"regexp"
 	"sort"
 	"strings"
@@ -72,7 +72,7 @@ func (f *Feed) GenerateATOM() []byte {
 // WriteATOM function writes the ATOM feed to file
 func (f *Feed) WriteATOM(filename string) {
 	b := f.GenerateATOM()
-	err := ioutil.WriteFile(filename, b, 0777)
+	err := os.WriteFile(filename, b, 0777)
 	if err != nil {
 		log.Fatalf("Could not write to file %s : %v ", filename, err)
 	}
