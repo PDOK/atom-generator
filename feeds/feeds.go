@@ -249,6 +249,7 @@ type Link struct {
 	Hreflang *string `xml:"hreflang,attr,omitempty" yaml:"hreflang"`
 	Length   string  `xml:"length,attr,omitempty" yaml:"length"`
 	Title    string  `xml:"title,attr,omitempty" yaml:"title"`
+	Version  *string `xml:"version,attr,omitempty" yaml:"version"`
 	Time     *string `xml:"time,attr,omitempty" yaml:"time"`
 	Bbox     *string `xml:"bbox,attr,omitempty" yaml:"bbox"`
 }
