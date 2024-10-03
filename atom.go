@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -38,7 +37,7 @@ func main() {
 	app.Action = func(c *cli.Context) error {
 
 		// Read and unmarshal config file
-		doc, err := ioutil.ReadFile(c.String(FILE))
+		doc, err := os.ReadFile(c.String(FILE))
 		if err != nil {
 			log.Fatalf("error: %v, with file: %v", err, `no file`)
 		}

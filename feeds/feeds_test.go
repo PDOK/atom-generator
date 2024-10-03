@@ -241,6 +241,38 @@ func TestGenerateATOM(t *testing.T) {
 						},
 					},
 				},
+				{
+					ID:      "https://foo.bar/version.xml",
+					Rights:  "foo",
+					Updated: &recentupdated,
+					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
+					Title:   "test met version attribute",
+					Content: "links zijn gesplists op version",
+					Link: []Link{
+						{
+							Href:   "https://foo.bar/version.zip",
+							Rel:    "section",
+							Type:   "application/zip",
+							Length: "0",
+						},
+						{
+							Href:    "https://foo.bar/v1/version.zip",
+							Rel:     "section",
+							Type:    "application/zip",
+							Length:  "1",
+							Version: sp("v1"),
+						},
+						{
+							Href:    "https://foo.bar/v2/version.zip",
+							Rel:     "section",
+							Type:    "application/zip",
+							Length:  "2",
+							Version: sp("v2"),
+							Bbox:    sp("2 -2 2 -2"),
+							Time:    sp("2002-02-02T02:02:02Z"),
+						},
+					},
+				},
 			},
 		},
 		}},
@@ -279,6 +311,17 @@ func TestGenerateATOM(t *testing.T) {
   <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="1" time="2001-01-01T01:01:01Z" bbox="1 -1.1 1 -1"></link>
   <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="2" time="2002-02-02T02:02:02Z" bbox="2 -2 2 -2"></link>
   <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="3" time="2003-03-03T03:03:03Z" bbox="-3 3 -3 3"></link>
+  <rights>foo</rights>
+  <updated>2021-10-01T00:00:00Z</updated>
+  <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
+ </entry>
+ <entry>
+  <id>https://foo.bar/version.xml</id>
+  <title>test met version attribute</title>
+  <content>links zijn gesplists op version</content>
+  <link href="https://foo.bar/version.zip" rel="section" type="application/zip" hreflang="nl" length="0"></link>
+  <link href="https://foo.bar/v1/version.zip" rel="section" type="application/zip" hreflang="nl" length="1" version="v1"></link>
+  <link href="https://foo.bar/v2/version.zip" rel="section" type="application/zip" hreflang="nl" length="2" version="v2" time="2002-02-02T02:02:02Z" bbox="2 -2 2 -2"></link>
   <rights>foo</rights>
   <updated>2021-10-01T00:00:00Z</updated>
   <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
