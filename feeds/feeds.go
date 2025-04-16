@@ -22,20 +22,20 @@ type Feeds struct {
 type Feed struct {
 	XMLName       xml.Name `xml:"feed"`
 	XMLStylesheet *string  `yaml:"stylesheet"`
-	Xmlns         string   `xml:"xmlns,attr" yaml:"xmlns"`                             //"http://www.w3.org/2005/Atom"
-	Georss        string   `xml:"xmlns:georss,attr,omitempty" yaml:"georss"`           //"http://www.georss.org/georss"
-	InspireDls    string   `xml:"xmlns:inspire_dls,attr,omitempty" yaml:"inspire_dls"` //"http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
-	Lang          *string  `xml:"xml:lang,attr,omitempty" yaml:"lang"`
+	Xmlns         string   `xml:"xmlns,attr" yaml:"xmlns"`                                       //"http://www.w3.org/2005/Atom"
+	Georss        string   `xml:"xmlns:georss,attr,omitempty" yaml:"georss,omitempty"`           //"http://www.georss.org/georss"
+	InspireDls    string   `xml:"xmlns:inspire_dls,attr,omitempty" yaml:"inspire_dls,omitempty"` //"http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
+	Lang          *string  `xml:"xml:lang,attr,omitempty" yaml:"lang,omitempty"`
 
 	ID       string `xml:"id" yaml:"id"`
 	Title    string `xml:"title" yaml:"title"`
 	Subtitle string `xml:"subtitle" yaml:"subtitle"`
 
 	// Placeholder Links, need to be moved to []Link and deleted
-	Self        *Link `xml:"self,omitempty" yaml:"self"`
-	Describedby *Link `xml:"describedby,omitempty" yaml:"describedby"`
-	Search      *Link `xml:"search,omitempty" yaml:"search"`
-	Up          *Link `xml:"up,omitempty" yaml:"up"`
+	Self        *Link `xml:"self,omitempty" yaml:"self,omitempty"`
+	Describedby *Link `xml:"describedby,omitempty" yaml:"describedby,omitempty"`
+	Search      *Link `xml:"search,omitempty" yaml:"search,omitempty"`
+	Up          *Link `xml:"up,omitempty" yaml:"up,omitempty"`
 
 	Link []Link `xml:"link" yaml:"link"`
 
@@ -222,16 +222,16 @@ func (f *Feed) recentUpdatedEntry() *string {
 // Entry struct
 type Entry struct {
 	ID                                string     `xml:"id" yaml:"id"`
-	Title                             string     `xml:"title,omitempty" yaml:"title"`
-	Content                           string     `xml:"content,omitempty" yaml:"content"`
-	Summary                           string     `xml:"summary,omitempty" yaml:"summary"`
+	Title                             string     `xml:"title,omitempty" yaml:"title,omitempty"`
+	Content                           string     `xml:"content,omitempty" yaml:"content,omitempty"`
+	Summary                           string     `xml:"summary,omitempty" yaml:"summary,omitempty"`
 	Link                              []Link     `xml:"link" yaml:"link"`
-	Rights                            string     `xml:"rights,omitempty" yaml:"rights"`
+	Rights                            string     `xml:"rights,omitempty" yaml:"rights,omitempty"`
 	Updated                           *string    `xml:"updated" yaml:"updated,omitempty"`
-	Polygon                           string     `xml:"georss:polygon,omitempty" yaml:"polygon"`
+	Polygon                           string     `xml:"georss:polygon,omitempty" yaml:"polygon,omitempty"`
 	Category                          []Category `xml:"category" yaml:"category"`
-	SpatialDatasetIdentifierCode      string     `xml:"inspire_dls:spatial_dataset_identifier_code,omitempty" yaml:"spatial_dataset_identifier_code"`
-	SpatialDatasetIdentifierNamespace string     `xml:"inspire_dls:spatial_dataset_identifier_namespace,omitempty" yaml:"spatial_dataset_identifier_namespace"`
+	SpatialDatasetIdentifierCode      string     `xml:"inspire_dls:spatial_dataset_identifier_code,omitempty" yaml:"spatial_dataset_identifier_code,omitempty"`
+	SpatialDatasetIdentifierNamespace string     `xml:"inspire_dls:spatial_dataset_identifier_namespace,omitempty" yaml:"spatial_dataset_identifier_namespace,omitempty"`
 }
 
 // Author struct
@@ -244,14 +244,14 @@ type Author struct {
 type Link struct {
 	Href     string  `xml:"href,attr" yaml:"href"`
 	Data     *string `yaml:"data"`
-	Rel      string  `xml:"rel,attr,omitempty" yaml:"rel"`
-	Type     string  `xml:"type,attr,omitempty" yaml:"type"`
-	Hreflang *string `xml:"hreflang,attr,omitempty" yaml:"hreflang"`
-	Length   string  `xml:"length,attr,omitempty" yaml:"length"`
-	Title    string  `xml:"title,attr,omitempty" yaml:"title"`
-	Version  *string `xml:"version,attr,omitempty" yaml:"version"`
-	Time     *string `xml:"time,attr,omitempty" yaml:"time"`
-	Bbox     *string `xml:"bbox,attr,omitempty" yaml:"bbox"`
+	Rel      string  `xml:"rel,attr,omitempty" yaml:"rel,omitempty"`
+	Type     string  `xml:"type,attr,omitempty" yaml:"type,omitempty"`
+	Hreflang *string `xml:"hreflang,attr,omitempty" yaml:"hreflang,omitempty"`
+	Length   string  `xml:"length,attr,omitempty" yaml:"length,omitempty"`
+	Title    string  `xml:"title,attr,omitempty" yaml:"title,omitempty"`
+	Version  *string `xml:"version,attr,omitempty" yaml:"version,omitempty"`
+	Time     *string `xml:"time,attr,omitempty" yaml:"time,omitempty"`
+	Bbox     *string `xml:"bbox,attr,omitempty" yaml:"bbox,omitempty"`
 }
 
 // SetHrefLang function assigns a default Lang is none is given
