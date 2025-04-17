@@ -230,8 +230,8 @@ type Entry struct {
 	Updated                           *string    `xml:"updated" yaml:"updated,omitempty"`
 	Polygon                           string     `xml:"georss:polygon,omitempty" yaml:"polygon,omitempty"`
 	Category                          []Category `xml:"category" yaml:"category"`
-	SpatialDatasetIdentifierCode      string     `xml:"inspire_dls:spatial_dataset_identifier_code,omitempty" yaml:"spatial_dataset_identifier_code,omitempty"`
-	SpatialDatasetIdentifierNamespace string     `xml:"inspire_dls:spatial_dataset_identifier_namespace,omitempty" yaml:"spatial_dataset_identifier_namespace,omitempty"`
+	SpatialDatasetIdentifierCode      *string    `xml:"inspire_dls:spatial_dataset_identifier_code,omitempty" yaml:"spatial_dataset_identifier_code,omitempty"`
+	SpatialDatasetIdentifierNamespace *string    `xml:"inspire_dls:spatial_dataset_identifier_namespace,omitempty" yaml:"spatial_dataset_identifier_namespace,omitempty"`
 }
 
 // Author struct
