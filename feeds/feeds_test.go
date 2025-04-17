@@ -71,8 +71,8 @@ func TestGenerateATOM(t *testing.T) {
 					Summary:                           "This is the entry for water network ABC Dataset",
 					Polygon:                           "47.202 5.755 55.183 5.755 55.183 15.253 47.202 15.253 47.202 5.755",
 					Title:                             "Water network ABC Dataset Feed",
-					SpatialDatasetIdentifierCode:      "wn_id1",
-					SpatialDatasetIdentifierNamespace: "http://xyz.org/",
+					SpatialDatasetIdentifierCode:      ptr("wn_id1"),
+					SpatialDatasetIdentifierNamespace: ptr("http://xyz.org/"),
 					Link: []Link{
 						{
 							Rel:  "describedby",
@@ -560,4 +560,8 @@ func TestFeedStyleSheet(t *testing.T) {
 			}
 		})
 	}
+}
+
+func ptr[T any](v T) *T {
+	return &v
 }
