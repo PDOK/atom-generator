@@ -243,7 +243,7 @@ type Author struct {
 // Link struct
 type Link struct {
 	Href     string  `xml:"href,attr" yaml:"href"`
-	Data     *string `yaml:"data"`
+	Data     *string `xml:"data,attr,omitempty" yaml:"data,omitempty"`
 	Rel      string  `xml:"rel,attr,omitempty" yaml:"rel,omitempty"`
 	Type     string  `xml:"type,attr,omitempty" yaml:"type,omitempty"`
 	Hreflang *string `xml:"hreflang,attr,omitempty" yaml:"hreflang,omitempty"`
