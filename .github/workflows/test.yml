@@ -22,4 +22,4 @@ jobs:
       - name: Running Tests
         run: |
           go mod tidy
-          make test
+          go test -v -race -shuffle=on -coverpkg "$(go list || go list -m | head -1)/..." -coverprofile cover.out.tmp ./...
