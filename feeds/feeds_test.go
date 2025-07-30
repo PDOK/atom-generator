@@ -141,17 +141,17 @@ func TestGenerateATOM(t *testing.T) {
 </feed>`},
 		1: {input: Feeds{Feeds: []Feed{{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
 			Lang:     sp("nl"),
-			ID:       "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+			ID:       "https://example.com/kadaster/plu/atom/v1_0/plu.xml",
 			Title:    "INSPIRE Download Service van Ruimtelijke plannen",
 			Subtitle: "Voorgedefinieerde dataset INSPIRE download service",
 			Link: []Link{
 				{
 					Rel:  "self",
-					Href: "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+					Href: "https://example.com/example.xml",
 				},
 				{
 					Rel:   "up",
-					Href:  "https://service.pdok.nl/kadaster/plu/atom/v1_0/index.xml",
+					Href:  "https://example.com/index.xml",
 					Type:  "application/atom+xml",
 					Title: "Top Atom Download Service Feed",
 				},
@@ -175,7 +175,7 @@ func TestGenerateATOM(t *testing.T) {
 			},
 			Entry: []Entry{
 				{
-					ID:      "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+					ID:      "https://example.com/example.xml",
 					Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
 					Updated: &recentupdated,
 					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
@@ -184,19 +184,19 @@ func TestGenerateATOM(t *testing.T) {
 					Link: []Link{
 						{
 							Rel:    "section",
-							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_A.gml.gz",
+							Href:   "https://example.com/downloads/Besluitgebied_A.gml.gz",
 							Type:   "application/x-gmz",
 							Length: "3547244",
 						},
 						{
 							Rel:    "section",
-							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_P.gml.gz",
+							Href:   "https://example.com/downloads/Besluitgebied_P.gml.gz",
 							Type:   "application/x-gmz",
 							Length: "15714976",
 						},
 						{
 							Rel:    "section",
-							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_X.gml.gz",
+							Href:   "https://example.com/downloads/Besluitgebied_X.gml.gz",
 							Type:   "application/x-gmz",
 							Length: "45621084",
 						},
@@ -279,11 +279,11 @@ func TestGenerateATOM(t *testing.T) {
 			// language=xml
 			expected: `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="nl">
- <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
+ <id>https://example.com/example.xml</id>
  <title>INSPIRE Download Service van Ruimtelijke plannen</title>
  <subtitle>Voorgedefinieerde dataset INSPIRE download service</subtitle>
- <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml" rel="self" hreflang="nl"></link>
- <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/index.xml" rel="up" type="application/atom+xml" hreflang="nl" title="Top Atom Download Service Feed"></link>
+ <link href="https://example.com/example.xml" rel="self" hreflang="nl"></link>
+ <link href="https://example.com/index.xml" rel="up" type="application/atom+xml" hreflang="nl" title="Top Atom Download Service Feed"></link>
  <link href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36" rel="describedby" type="text/html" hreflang="nl"></link>
  <link href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36" rel="related" type="text/html" hreflang="nl" title="NGR pagina voor deze dataset"></link>
  <rights>http://creativecommons.org/publicdomain/zero/1.0/deed.nl</rights>
@@ -293,12 +293,12 @@ func TestGenerateATOM(t *testing.T) {
   <email>beheerPDOK@kadaster.nl</email>
  </author>
  <entry>
-  <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
+  <id>https://example.com/example.xml</id>
   <title>INSPIRE Download Service van Ruimtelijke plannen</title>
   <content>Bestand is opgesplitst per featuretype, elk featuretype heeft een eigen download bestand</content>
-  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_A.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="3547244"></link>
-  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_P.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="15714976"></link>
-  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_X.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="45621084"></link>
+  <link href="https://example.com/downloads/Besluitgebied_A.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="3547244"></link>
+  <link href="https://example.com/downloads/Besluitgebied_P.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="15714976"></link>
+  <link href="https://example.com/downloads/Besluitgebied_X.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="45621084"></link>
   <rights>http://creativecommons.org/publicdomain/zero/1.0/deed.nl</rights>
   <updated>2021-10-01T00:00:00Z</updated>
   <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
