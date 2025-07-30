@@ -141,62 +141,62 @@ func TestGenerateATOM(t *testing.T) {
 </feed>`},
 		1: {input: Feeds{Feeds: []Feed{{InspireDls: "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0",
 			Lang:     sp("nl"),
-			ID:       "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
-			Title:    "INSPIRE Download Service van Ruimtelijke plannen",
-			Subtitle: "Voorgedefinieerde dataset INSPIRE download service",
+			ID:       "https://example.com/example.xml",
+			Title:    "INSPIRE Download Service",
+			Subtitle: "Predefined dataset INSPIRE download service",
 			Link: []Link{
 				{
 					Rel:  "self",
-					Href: "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+					Href: "https://example.com/example.xml",
 				},
 				{
 					Rel:   "up",
-					Href:  "https://service.pdok.nl/kadaster/plu/atom/v1_0/index.xml",
+					Href:  "https://example.com/index.xml",
 					Type:  "application/atom+xml",
-					Title: "Top Atom Download Service Feed",
+					Title: "Atom Download Service Feed",
 				},
 				{
 					Rel:  "describedby",
-					Href: "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36",
+					Href: "https://example.com/metadata/id",
 					Type: "text/html",
 				},
 				{
 					Rel:   "related",
-					Href:  "https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36",
+					Href:  "https://example.com/metadata/id",
 					Type:  "text/html",
-					Title: "NGR pagina voor deze dataset",
+					Title: "Metadata page for this dataset",
 				},
 			},
 			Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
 			Updated: &recentupdated,
 			Author: Author{
-				Name:  "PDOK Beheer",
-				Email: "beheerPDOK@kadaster.nl",
+				Name:  "Maintainer",
+				Email: "info@example.com",
 			},
 			Entry: []Entry{
 				{
-					ID:      "https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml",
+					ID:      "https://example.com/example.xml",
 					Rights:  "http://creativecommons.org/publicdomain/zero/1.0/deed.nl",
 					Updated: &recentupdated,
 					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
-					Title:   "INSPIRE Download Service van Ruimtelijke plannen",
-					Content: "Bestand is opgesplitst per featuretype, elk featuretype heeft een eigen download bestand",
+					Title:   "INSPIRE Download Service",
+					Content: "File split per featuretype",
 					Link: []Link{
 						{
 							Rel:    "section",
-							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_A.gml.gz",
+							Href:   "https://example.com/downloads/A.gml.gz",
 							Type:   "application/x-gmz",
 							Length: "3547244",
 						},
 						{
 							Rel:    "section",
-							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_P.gml.gz",
+							Href:   "https://example.com/downloads/P.gml.gz",
 							Type:   "application/x-gmz",
 							Length: "15714976",
 						},
 						{
 							Rel:    "section",
-							Href:   "https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_X.gml.gz",
+							Href:   "https://example.com/downloads/X.gml.gz",
 							Type:   "application/x-gmz",
 							Length: "45621084",
 						},
@@ -213,7 +213,7 @@ func TestGenerateATOM(t *testing.T) {
 					Updated: &recentupdated,
 					Polygon: "50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1",
 					Title:   "Test met bbox en time attributes",
-					Content: "Bestand is opgesplitst per bbox én time (wow!)",
+					Content: "File split per bbox and time",
 					Link: []Link{
 						{
 							Rel:    "section",
@@ -279,26 +279,26 @@ func TestGenerateATOM(t *testing.T) {
 			// language=xml
 			expected: `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0" xml:lang="nl">
- <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
- <title>INSPIRE Download Service van Ruimtelijke plannen</title>
- <subtitle>Voorgedefinieerde dataset INSPIRE download service</subtitle>
- <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml" rel="self" hreflang="nl"></link>
- <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/index.xml" rel="up" type="application/atom+xml" hreflang="nl" title="Top Atom Download Service Feed"></link>
- <link href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36" rel="describedby" type="text/html" hreflang="nl"></link>
- <link href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/17716ed7-ce0d-4bfd-8868-a398e5578a36" rel="related" type="text/html" hreflang="nl" title="NGR pagina voor deze dataset"></link>
+ <id>https://example.com/example.xml</id>
+ <title>INSPIRE Download Service</title>
+ <subtitle>Predefined dataset INSPIRE download service</subtitle>
+ <link href="https://example.com/example.xml" rel="self" hreflang="nl"></link>
+ <link href="https://example.com/index.xml" rel="up" type="application/atom+xml" hreflang="nl" title="Atom Download Service Feed"></link>
+ <link href="https://example.com/metadata/id" rel="describedby" type="text/html" hreflang="nl"></link>
+ <link href="https://example.com/metadata/id" rel="related" type="text/html" hreflang="nl" title="Metadata page for this dataset"></link>
  <rights>http://creativecommons.org/publicdomain/zero/1.0/deed.nl</rights>
  <updated>2021-10-01T00:00:00Z</updated>
  <author>
-  <name>PDOK Beheer</name>
-  <email>beheerPDOK@kadaster.nl</email>
+  <name>Maintainer</name>
+  <email>info@example.com</email>
  </author>
  <entry>
-  <id>https://service.pdok.nl/kadaster/plu/atom/v1_0/plu.xml</id>
-  <title>INSPIRE Download Service van Ruimtelijke plannen</title>
-  <content>Bestand is opgesplitst per featuretype, elk featuretype heeft een eigen download bestand</content>
-  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_A.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="3547244"></link>
-  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_P.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="15714976"></link>
-  <link href="https://service.pdok.nl/kadaster/plu/atom/v1_0/downloads/Besluitgebied_X.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="45621084"></link>
+  <id>https://example.com/example.xml</id>
+  <title>INSPIRE Download Service</title>
+  <content>File split per featuretype</content>
+  <link href="https://example.com/downloads/A.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="3547244"></link>
+  <link href="https://example.com/downloads/P.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="15714976"></link>
+  <link href="https://example.com/downloads/X.gml.gz" rel="section" type="application/x-gmz" hreflang="nl" length="45621084"></link>
   <rights>http://creativecommons.org/publicdomain/zero/1.0/deed.nl</rights>
   <updated>2021-10-01T00:00:00Z</updated>
   <georss:polygon>50.6 3.1 50.6 7.3 53.7 7.3 53.7 3.1 50.6 3.1</georss:polygon>
@@ -307,7 +307,7 @@ func TestGenerateATOM(t *testing.T) {
  <entry>
   <id>https://foo.bar/baz.xml</id>
   <title>Test met bbox en time attributes</title>
-  <content>Bestand is opgesplitst per bbox én time (wow!)</content>
+  <content>File split per bbox and time</content>
   <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="1" time="2001-01-01T01:01:01Z" bbox="1 -1.1 1 -1"></link>
   <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="2" time="2002-02-02T02:02:02Z" bbox="2 -2 2 -2"></link>
   <link href="https://foo.bar/baz.zip" rel="section" type="application/zip" hreflang="nl" length="3" time="2003-03-03T03:03:03Z" bbox="-3 3 -3 3"></link>
