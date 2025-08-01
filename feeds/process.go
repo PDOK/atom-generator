@@ -11,26 +11,20 @@ func ProcessFeeds(fs Feeds) []Feed {
 	var processedFeeds []Feed
 	for _, f := range fs.Feeds {
 		d := GetDefaultFeedProperties()
-		mergo.Merge(&f, d)
+		_ = mergo.Merge(&f, d)
 
 		links := f.Link
-
-		var self, describedby, search, up Link
 		if f.Self != nil {
-			self = Self(*f.Self)
-			links = append(links, self)
+			links = append(links, Self(*f.Self))
 		}
 		if f.Describedby != nil {
-			describedby = DescribedBy(*f.Describedby)
-			links = append(links, describedby)
+			links = append(links, DescribedBy(*f.Describedby))
 		}
 		if f.Search != nil {
-			search = Search(*f.Search)
-			links = append(links, search)
+			links = append(links, Search(*f.Search))
 		}
 		if f.Up != nil {
-			up = Up(*f.Up)
-			links = append(links, up)
+			links = append(links, Up(*f.Up))
 		}
 
 		f.Link = links
@@ -48,6 +42,8 @@ func ProcessFeeds(fs Feeds) []Feed {
 					if err != nil {
 						panic(err)
 					}
+					defer res.Body.Close()
+
 					if len(link.Length) == 0 {
 						link.Length = res.Header.Get("Content-Length")
 					}

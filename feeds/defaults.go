@@ -24,7 +24,7 @@ const (
 )
 
 const (
-	warningsubtitle = "missing 'subtitle' may be a human readable subtitle for the feed see TG Recommandation 1"
+	warningsubtitle = "missing 'subtitle' may be a human readable subtitle for the feed see TG Recommendation 1"
 )
 
 // GetDefaultFeedProperties returns mandatory/static ServiceFeed properties

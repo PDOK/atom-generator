@@ -19,12 +19,14 @@ type Feeds struct {
 }
 
 // Feed struct
+//
+//nolint:tagliatelle
 type Feed struct {
 	XMLName       xml.Name `xml:"feed"`
 	XMLStylesheet *string  `yaml:"stylesheet"`
-	Xmlns         string   `xml:"xmlns,attr" yaml:"xmlns"`                                       //"http://www.w3.org/2005/Atom"
-	Georss        string   `xml:"xmlns:georss,attr,omitempty" yaml:"georss,omitempty"`           //"http://www.georss.org/georss"
-	InspireDls    string   `xml:"xmlns:inspire_dls,attr,omitempty" yaml:"inspire_dls,omitempty"` //"http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
+	Xmlns         string   `xml:"xmlns,attr" yaml:"xmlns"`                                       // "http://www.w3.org/2005/Atom"
+	Georss        string   `xml:"xmlns:georss,attr,omitempty" yaml:"georss,omitempty"`           // "http://www.georss.org/georss"
+	InspireDls    string   `xml:"xmlns:inspire_dls,attr,omitempty" yaml:"inspire_dls,omitempty"` // "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
 	Lang          *string  `xml:"xml:lang,attr,omitempty" yaml:"lang,omitempty"`
 
 	ID       string `xml:"id" yaml:"id"`
@@ -70,6 +72,8 @@ func (f *Feed) GenerateATOM() []byte {
 }
 
 // WriteATOM function writes the ATOM feed to file
+//
+//nolint:gosec
 func (f *Feed) WriteATOM(filename string) {
 	b := f.GenerateATOM()
 	err := os.WriteFile(filename, b, 0777)
@@ -90,6 +94,8 @@ func (f *Feed) StyleSheet() []byte {
 
 // Valid function that validates the Feed based on TG Requirements
 // For now a simple validation
+//
+//nolint:cyclop
 func (f *Feed) Valid() error {
 
 	// TG Requirement 5
@@ -151,17 +157,15 @@ func (f *Feed) Valid() error {
 	// TG Recommendation 10
 	// Where a dataset is provided in multiple physical files: a `bbox` attribute may be used to describe the geospatial extent of a particular file.
 	// If this is used, then the value of this attribute should be structured according to the georss:box structure.
+	re := regexp.MustCompile(`^-?\d+(\.\d+)? -?\d+(\.\d+)? -?\d+(\.\d+)? -?\d+(\.\d+)?$`)
 	for _, entry := range f.Entry {
 		for _, link := range entry.Link {
 			if link.Bbox == nil {
 				continue
 			}
-			matched, err := regexp.MatchString(`^-?\d+(\.\d+)? -?\d+(\.\d+)? -?\d+(\.\d+)? -?\d+(\.\d+)?$`, *link.Bbox)
+			matched := re.MatchString(*link.Bbox)
 			if !matched {
 				return errors.New(invalidlinkbbox)
-			}
-			if err != nil {
-				return errors.New("error while matching bbox regex: " + err.Error())
 			}
 		}
 	}
@@ -179,9 +183,9 @@ func (f *Feed) Valid() error {
 func (f *Feed) recentUpdated(feeds Feeds) {
 	for index, entry := range f.Entry {
 		if entry.Updated == nil {
-			nestedfeed := entry.nestedFeed(feeds.Feeds)
-			if nestedfeed != nil {
-				updated := nestedfeed.recentUpdatedEntry()
+			nestedFeed := entry.nestedFeed(feeds.Feeds)
+			if nestedFeed != nil {
+				updated := nestedFeed.recentUpdatedEntry()
 				f.Entry[index].Updated = updated
 			}
 		}
@@ -202,24 +206,23 @@ func (e Entry) nestedFeed(feeds []Feed) *Feed {
 }
 
 func (f *Feed) recentUpdatedEntry() *string {
-	var updatedfields []string
+	var updatedFields []string
 
 	for _, entry := range f.Entry {
-		if entry.Updated == nil {
-		} else {
-			updatedfields = append(updatedfields, *entry.Updated)
+		if entry.Updated != nil {
+			updatedFields = append(updatedFields, *entry.Updated)
 		}
 	}
-	sort.Sort(sort.Reverse(sort.StringSlice(updatedfields)))
-	if len(updatedfields) == 0 {
+	sort.Sort(sort.Reverse(sort.StringSlice(updatedFields)))
+	if len(updatedFields) == 0 {
 		return nil
-	} else {
-		return &updatedfields[0]
 	}
-
+	return &updatedFields[0]
 }
 
 // Entry struct
+//
+//nolint:tagliatelle
 type Entry struct {
 	ID                                string     `xml:"id" yaml:"id"`
 	Title                             string     `xml:"title,omitempty" yaml:"title,omitempty"`
