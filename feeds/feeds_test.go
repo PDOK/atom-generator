@@ -489,11 +489,12 @@ func TestValid(t *testing.T) {
 
 	for k, test := range tests {
 		b := test.input.Valid()
-		if b == nil {
-			if b != test.expected {
-				t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
-			}
-		} else {
+
+		if b == nil && !errors.Is(b, test.expected) {
+			t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
+		}
+
+		if b != nil {
 			if test.expected != nil {
 				if b.Error() != test.expected.Error() {
 					t.Errorf("test: %d, expected: %t \ngot: %t", k, test.expected, b)
