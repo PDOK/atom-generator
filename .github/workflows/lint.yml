@@ -32,7 +32,7 @@ jobs:
           go install golang.org/x/vuln/cmd/govulncheck@latest
           govulncheck ./...
 
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v9
         with:
-          version: latest
+          version: v2.9.0
