@@ -8,7 +8,8 @@ import (
 
 // ProcessFeed func
 func ProcessFeeds(fs Feeds) []Feed {
-	var processedFeeds []Feed
+	processedFeeds := make([]Feed, 0, len(fs.Feeds))
+
 	for _, f := range fs.Feeds {
 		d := GetDefaultFeedProperties()
 		_ = mergo.Merge(&f, d)
