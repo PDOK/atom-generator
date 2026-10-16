@@ -24,6 +24,7 @@ type Feeds struct {
 type Feed struct {
 	XMLName       xml.Name `xml:"feed"`
 	XMLStylesheet *string  `yaml:"stylesheet"`
+	Script        *Script  `xml:"script,omitempty"`
 	Xmlns         string   `xml:"xmlns,attr" yaml:"xmlns"`                                       // "http://www.w3.org/2005/Atom"
 	Georss        string   `xml:"xmlns:georss,attr,omitempty" yaml:"georss,omitempty"`           // "http://www.georss.org/georss"
 	InspireDls    string   `xml:"xmlns:inspire_dls,attr,omitempty" yaml:"inspire_dls,omitempty"` // "http://inspire.ec.europa.eu/schemas/inspire_dls/1.0"
@@ -64,11 +65,12 @@ func (f *Feed) GetFileName() (string, error) {
 
 // GenerateATOM function build a ATOM feed from the configuration
 func (f *Feed) GenerateATOM() []byte {
-	stylesheet := f.StyleSheet()
+	stylesheetHeader := f.StyleSheet()
 	f.XMLStylesheet = nil
 
-	si, _ := xml.MarshalIndent(f, "", " ")
-	return append(append([]byte(xml.Header), stylesheet...), si...)
+	xmlFeed, _ := xml.MarshalIndent(f, "", " ")
+
+	return append(append([]byte(xml.Header), stylesheetHeader...), xmlFeed...)
 }
 
 // WriteATOM function writes the ATOM feed to file
@@ -85,6 +87,11 @@ func (f *Feed) WriteATOM(filename string) {
 // StyleSheet function returns a xml-stylesheet header if available
 func (f *Feed) StyleSheet() []byte {
 	if f.XMLStylesheet != nil {
+		f.Script = &Script{
+			Src:   "xslt-polyfill.min.js",
+			Xmlns: "http://www.w3.org/1999/xhtml",
+		}
+
 		header := `<?xml-stylesheet href="` + *f.XMLStylesheet + `" type="text/xsl" media="screen"?>` + "\n"
 		return []byte(header)
 	}
@@ -241,6 +248,11 @@ type Entry struct {
 type Author struct {
 	Name  string `xml:"name" yaml:"name"`
 	Email string `xml:"email" yaml:"email"`
+}
+
+type Script struct {
+	Src   string `xml:"src,attr"`
+	Xmlns string `xml:"xmlns,attr"`
 }
 
 // Link struct
