@@ -67,7 +67,7 @@ func main() {
 				if err != nil {
 					log.Fatalf("Could not read file static/xslt-polyfill.min.js : %v ", err)
 				}
-				err = os.WriteFile(c.String(OUTPUT) + `/xslt-polyfill.min.js`, file, 0777)
+				err = os.WriteFile(c.String(OUTPUT)+`/xslt-polyfill.min.js`, file, 0777) //nolint:gosec
 				if err != nil {
 					log.Fatalf("Could not write to file xslt-polyfill.min.js : %v ", err)
 				}

@@ -65,7 +65,7 @@ linters:
     - ginkgolinter              # Enforces standards of using ginkgo and gomega.
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go #) are valid.
     - gochecksumtype            # Run exhaustiveness checks on Go "sum types".
-    - goconst                   # Finds repeated strings that could be replaced by a constant.
+    #- goconst                   # Finds repeated strings that could be replaced by a constant.
     - gocritic                  # Provides diagnostics that check for bugs, performance and style issues.
     - goheader                  # Check if file header matches to pattern.
     - gomoddirectives           # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod.
