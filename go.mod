@@ -1,6 +1,6 @@
 module github.com/pdok/atom-generator
 
-go 1.26.3
+go 1.26.10
 
 require (
 	github.com/imdario/mergo v0.3.13

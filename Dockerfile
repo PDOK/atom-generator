@@ -38,5 +38,6 @@ WORKDIR /
 # Import from builder.
 COPY --from=build-env /atom /
 COPY --from=build-env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build-env /go/src/app/static/ /static/
 
 CMD ["atom"]

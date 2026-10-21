@@ -47,6 +47,7 @@ func main() {
 		}
 
 		processedFeeds := feeds.ProcessFeeds(config)
+		scriptCopied := false
 
 		// write both service and dataset feeds
 		for _, feed := range processedFeeds {
@@ -59,6 +60,18 @@ func main() {
 				feed.WriteATOM(c.String(OUTPUT) + `/` + filename)
 			} else {
 				log.Fatalf(`ATOM Feed NOT generated the id: %s`, feed.ID)
+			}
+
+			if !scriptCopied && feed.Script != nil {
+				file, err := os.ReadFile("static/xslt-polyfill.min.js")
+				if err != nil {
+					log.Fatalf("Could not read file static/xslt-polyfill.min.js : %v ", err)
+				}
+				err = os.WriteFile(c.String(OUTPUT)+`/xslt-polyfill.min.js`, file, 0777) //nolint:gosec
+				if err != nil {
+					log.Fatalf("Could not write to file xslt-polyfill.min.js : %v ", err)
+				}
+				scriptCopied = true
 			}
 		}
 
